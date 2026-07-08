@@ -1,10 +1,10 @@
 # umbrel-babyoke
 
-Single-app [Umbrel](https://umbrel.com) community app store for **Babyoke** — Lullaby karaoke and wind-down sounds for babies.
+Single-app [Umbrel](https://umbrel.com) community app store for **Babyoke** —
+a lullaby-karaoke web app for babies and toddlers, with synced lyrics, a noise engine, and a wind-down routine.
 
 The store id equals the app id (`babyoke`), so the app installs with a clean,
-unprefixed id. One repo per app; siblings live in `arquiguru/umbrel-larapaper`,
-`arquiguru/umbrel-babyoke`, and `arquiguru/umbrel-babyglyph`.
+unprefixed id.
 
 ## Install
 
