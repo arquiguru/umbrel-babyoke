@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Babyoke ships its content (index.html + nginx site config) INSIDE this store
+# repo under ./content. Umbrel bind-mounts files from the app data dir, not from
+# the store folder, so we copy the bundled content into ${APP_DATA_DIR}/data/site
+# before the container starts. The copy is unconditional so a store update that
+# ships a new index.html is picked up on the next app (re)start.
+#
+# umbreld's app update refreshes docker-compose.yml / umbrel-app.yml / hooks in
+# the app data dir but NOT extra dirs like content/, so app-data's content/ goes
+# stale after the first install. Prefer the app-store checkout (always freshly
+# git-pulled) and fall back to the local copy.
+APP_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")"
+SITE_DIR="${APP_DIR}/data/site"
+APP_ID="$(basename "${APP_DIR}")"
+
+CONTENT_DIR="${APP_DIR}/content"
+for store_content in "${APP_DIR}/../../app-stores/"*"/${APP_ID}/content"; do
+  if [[ -f "${store_content}/index.html" ]]; then
+    CONTENT_DIR="${store_content}"
+    break
+  fi
+done
+
+mkdir -p "${SITE_DIR}"
+cp -f "${CONTENT_DIR}/index.html"   "${SITE_DIR}/index.html"
+cp -f "${CONTENT_DIR}/default.conf" "${SITE_DIR}/default.conf"
+
+# nginx:alpine runs its worker processes as uid/gid 101 (nginx). The mounts are
+# read-only, but making them owned/readable by that user avoids any edge-case
+# permission surprises on stricter hosts.
+chmod 0644 "${SITE_DIR}/index.html" "${SITE_DIR}/default.conf"

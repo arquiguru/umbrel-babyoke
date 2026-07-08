@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Babyoke">
+  <rect width="512" height="512" rx="112" fill="#0B1220"/>
+  <path d="M320 96a160 160 0 1 0 80 216 128 128 0 0 1-80-216z" fill="#E8A25E"/>
+  <circle cx="176" cy="176" r="16" fill="#F6F1E6"/>
+  <circle cx="224" cy="320" r="12" fill="#F6F1E6"/>
+  <circle cx="352" cy="392" r="10" fill="#F6F1E6"/>
+</svg>

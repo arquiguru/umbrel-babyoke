@@ -1,0 +1,2644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#F6F1E6" />
+<title>Babyoke — arrullos para dormir</title>
+<meta name="description" content="Compañero de arrullo bilingüe: canciones de cuna karaoke, sonidos para calmar y rutina de sueño — lullaby karaoke and calming sounds for bedtime." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230B1220'/%3E%3Cpath d='M40 14a20 20 0 1 0 10 27A16 16 0 0 1 40 14z' fill='%23E8A25E'/%3E%3Ccircle cx='22' cy='24' r='2' fill='%23F6F1E6'/%3E%3Ccircle cx='28' cy='40' r='1.5' fill='%23F6F1E6'/%3E%3C/svg%3E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Babyoke" />
+<!-- Apply the persisted theme before CSS parses — a night/ember reload must never flash linen. -->
+<script>try{var th=localStorage.getItem('bk2-theme');if(th==='night'||th==='ember')document.documentElement.dataset.theme=th;}catch(e){}</script>
+<style>
+  :root{
+    /* Linen & Ink — day */
+    --bg:#F6F1E6; --bg2:#EFE7D6;
+    --surface:#FFFDF7; --surface2:#FBF6EA;
+    --ink:#22303F; --ink-soft:#7A7264; --ink-faint:#A79E8C;
+    --accent:#D96C47;          /* terracotta */
+    --accent-deep:#B9532F;
+    --gold:#C99A3C;
+    --teal:#5E8B7E;
+    --hairline:#E3D9C4;
+    --shadow:rgba(60,48,30,.10);
+    --sky-a:#F3ECDC; --sky-b:#EDE2CC;   /* player sky */
+    --glow:rgba(217,108,71,.10);
+    --syl-cur:#B9532F;
+    --pill-bg:rgba(255,253,247,.72);
+    --track-bg:rgba(34,48,63,.10);
+    --scrim:rgba(24,20,12,.42);
+    --end-bg:rgba(246,241,230,.66);
+    --star:#C99A3C;
+    --focus:#D96C47;
+    font-size:16px;
+  }
+  html[data-theme="night"]{
+    /* Midnight ink */
+    --bg:#0B1220; --bg2:#0E1729;
+    --surface:#131D30; --surface2:#182338;
+    --ink:#E4E1D3; --ink-soft:#93a4d4; --ink-faint:#5C6B84;
+    --accent:#E8A25E;          /* starlight amber */
+    --accent-deep:#D9854A;
+    --gold:#D8B36A;
+    --teal:#7FB0A0;
+    --hairline:#1F2A3F;
+    --shadow:rgba(0,0,0,.5);
+    --sky-a:#0A101D; --sky-b:#101A30;
+    --glow:rgba(232,162,94,.08);
+    --syl-cur:#F0B473;
+    --pill-bg:rgba(16,24,41,.72);
+    --track-bg:rgba(228,225,211,.14);
+    --scrim:rgba(2,4,9,.6);
+    --end-bg:rgba(9,14,26,.68);
+    --star:#E8D9AE;
+    --focus:#E8A25E;
+  }
+  html[data-theme="ember"]{
+    /* Ember — melatonin-safe: near-black, amber/red only, no blue light */
+    --bg:#080403; --bg2:#0C0604;
+    --surface:#150B06; --surface2:#1B0F08;
+    --ink:#E2A183; --ink-soft:#A06C52; --ink-faint:#6E4732;
+    --accent:#C96F4A;
+    --accent-deep:#A85434;
+    --gold:#B07A3A;
+    --teal:#A06C52;
+    --hairline:#241109;
+    --shadow:rgba(0,0,0,.6);
+    --sky-a:#070302; --sky-b:#120805;
+    --glow:rgba(201,111,74,.07);
+    --syl-cur:#F0955F;
+    --pill-bg:rgba(18,9,5,.78);
+    --track-bg:rgba(226,161,131,.14);
+    --scrim:rgba(0,0,0,.7);
+    --end-bg:rgba(8,4,3,.74);
+    --star:#B07A3A;
+    --focus:#C96F4A;
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; margin:0; }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,'Helvetica Neue',Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    overflow:hidden;
+    -webkit-user-select:none; user-select:none;
+    touch-action:manipulation;
+  }
+  .serif{ font-family:'Iowan Old Style','Palatino Linotype',Palatino,Charter,Georgia,'Times New Roman',serif; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; padding:0; }
+  button:focus-visible, input:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--focus); outline-offset:3px; border-radius:8px;
+  }
+  svg{ display:block; }
+  .screen{ position:fixed; inset:0; display:none; flex-direction:column; }
+  .screen.active{ display:flex; }
+  .visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+  /* ============ HOME ============ */
+  #home{ overflow-y:auto; background:linear-gradient(175deg,var(--bg) 0%,var(--bg2) 100%); }
+  .wrap{ width:100%; max-width:1180px; margin:0 auto; padding:0 clamp(18px,4vw,56px); }
+  .home-head{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+    padding-top:clamp(20px,4vh,48px);
+  }
+  .brand h1{
+    margin:0; font-weight:600; letter-spacing:.01em;
+    font-size:clamp(2.1rem,5.5vw,3.6rem); line-height:1.05;
+    font-style:italic;
+  }
+  .brand h1 .moonmark{ display:inline-block; width:.55em; height:.55em; margin-left:.18em; vertical-align:baseline; }
+  #greeting{
+    margin:.45em 0 0; font-size:clamp(.95rem,2.2vw,1.25rem);
+    color:var(--ink-soft); font-weight:500; letter-spacing:.01em;
+  }
+  .gear-btn{
+    flex:0 0 auto; width:clamp(56px,8vw,68px); height:clamp(56px,8vw,68px);
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface); border-radius:50%;
+    border:1px solid var(--hairline);
+    box-shadow:0 6px 18px var(--shadow);
+    transition:transform .3s ease;
+  }
+  .gear-btn svg{ width:44%; height:44%; stroke:var(--ink-soft); }
+  .gear-btn:active{ transform:rotate(30deg) scale(.94); }
+
+  /* first-run welcome card */
+  .welcome{
+    margin-top:clamp(16px,3vh,28px);
+    background:var(--surface); border:1px solid var(--hairline);
+    border-radius:20px; padding:clamp(18px,3vw,28px);
+    box-shadow:0 10px 30px var(--shadow);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .welcome[hidden]{ display:none; }
+  .welcome p{ margin:0; font-size:clamp(1rem,2.4vw,1.2rem); color:var(--ink-soft); line-height:1.45; }
+  .welcome .w-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .welcome input{
+    flex:1 1 180px; min-height:60px; padding:0 18px;
+    border-radius:14px; border:1.5px solid var(--hairline);
+    background:var(--surface2); color:var(--ink);
+    font-size:1.15rem; font-family:inherit;
+  }
+  .btn-solid{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    min-height:60px; padding:0 26px; border-radius:14px;
+    background:var(--accent); color:#FFF8F2; font-weight:700;
+    font-size:clamp(1rem,2.4vw,1.15rem);
+    box-shadow:0 8px 20px var(--shadow);
+    transition:transform .15s ease;
+  }
+  html[data-theme="ember"] .btn-solid{ color:#1B0F08; }
+  .btn-solid:active{ transform:scale(.97); }
+
+  /* continue chip */
+  .continue-chip{
+    display:none; align-items:center; gap:12px;
+    margin-top:clamp(14px,2.5vh,22px);
+    min-height:64px; padding:10px 20px; width:100%;
+    border-radius:16px; border:1.5px dashed var(--gold);
+    background:var(--surface2); color:var(--ink);
+    font-size:clamp(1rem,2.4vw,1.2rem); text-align:left;
+    transition:transform .15s ease;
+  }
+  .continue-chip.show{ display:flex; }
+  .continue-chip:active{ transform:scale(.985); }
+  .continue-chip .cc-ico{ color:var(--gold); flex:0 0 auto; }
+  .continue-chip .cc-txt b{ font-weight:700; }
+  .continue-chip .cc-sub{ display:block; color:var(--ink-soft); font-size:.85em; margin-top:2px; }
+
+  /* action row */
+  .actions{
+    display:flex; gap:clamp(10px,2vw,16px); flex-wrap:wrap;
+    margin-top:clamp(16px,3vh,26px);
+  }
+  .action-btn{
+    flex:1 1 200px; min-height:76px; padding:0 22px;
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    border-radius:18px; font-weight:700;
+    font-size:clamp(1.05rem,2.5vw,1.3rem);
+    box-shadow:0 8px 22px var(--shadow);
+    transition:transform .15s ease;
+  }
+  .action-btn:active{ transform:scale(.97); }
+  .action-btn svg{ width:1.2em; height:1.2em; flex:0 0 auto; }
+  .action-btn.primary{ background:var(--ink); color:var(--bg); }
+  html[data-theme="night"] .action-btn.primary{ background:var(--accent); color:#14100A; }
+  html[data-theme="ember"] .action-btn.primary{ background:var(--accent-deep); color:#FFE2CE; }
+  .action-btn.wind{ background:var(--surface); color:var(--ink); border:1.5px solid var(--gold); }
+  .action-btn.favs{ background:var(--surface); color:var(--ink); border:1.5px solid var(--hairline); }
+  .action-btn[hidden]{ display:none; }
+
+  /* category chips */
+  .cats{ display:flex; gap:10px; margin-top:clamp(18px,3.5vh,30px); flex-wrap:wrap; }
+  .cat-chip{
+    min-height:52px; padding:0 22px; border-radius:999px;
+    border:1.5px solid var(--hairline); background:transparent;
+    color:var(--ink-soft); font-weight:600; font-size:clamp(.95rem,2.2vw,1.1rem);
+    transition:all .2s ease;
+  }
+  .cat-chip[aria-pressed="true"]{
+    background:var(--ink); border-color:var(--ink); color:var(--bg);
+  }
+  html[data-theme="night"] .cat-chip[aria-pressed="true"],
+  html[data-theme="ember"] .cat-chip[aria-pressed="true"]{
+    background:var(--surface2); border-color:var(--accent); color:var(--accent);
+  }
+
+  /* songbook list */
+  .songbook{
+    margin-top:clamp(14px,2.5vh,24px);
+    border-top:1px solid var(--hairline);
+    display:grid; grid-template-columns:1fr; column-gap:clamp(24px,4vw,56px);
+  }
+  @media (min-width:900px){ .songbook{ grid-template-columns:1fr 1fr; } }
+  .row-wrap{
+    position:relative; display:flex;
+    border-bottom:1px solid var(--hairline);
+    animation:row-in .5s ease backwards;
+  }
+  @keyframes row-in{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none;} }
+  .song-row{
+    flex:1 1 auto; display:flex; align-items:center; gap:clamp(14px,2.4vw,20px);
+    min-height:clamp(92px,11vw,112px); padding:14px 64px 14px 4px;
+    text-align:left; transition:background .2s ease;
+    border-radius:12px;
+  }
+  .song-row .s-badge{
+    flex:0 0 auto; width:clamp(52px,7vw,64px); height:clamp(52px,7vw,64px);
+    border-radius:16px; display:flex; align-items:center; justify-content:center;
+    background:var(--surface2); border:1px solid var(--hairline);
+    font-size:clamp(1.5rem,3.4vw,1.9rem); line-height:1;
+  }
+  .song-row .s-text{ min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .song-row .s-title{
+    font-weight:600; font-size:clamp(1.15rem,2.8vw,1.55rem); line-height:1.2;
+    letter-spacing:.005em;
+  }
+  .song-row .s-meta{
+    display:flex; align-items:center; gap:10px;
+    font-size:clamp(.82rem,1.9vw,.95rem); color:var(--ink-soft); font-weight:500;
+  }
+  .song-row .s-meta .dot-sep{ opacity:.5; }
+  .mood-tag{ color:var(--teal); }
+  .mood-tag.arrullo{ color:var(--gold); }
+  .fav-btn{
+    position:absolute; top:50%; right:2px; transform:translateY(-50%); z-index:2;
+    width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent); opacity:.45;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .fav-btn:active{ transform:translateY(-50%) scale(.86); }
+  .fav-btn svg{ width:24px; height:24px; }
+  .fav-btn svg path{ fill:none; stroke:currentColor; stroke-width:2; }
+  .fav-btn[aria-pressed="true"]{ opacity:1; }
+  .fav-btn[aria-pressed="true"] svg path{ fill:currentColor; stroke:none; }
+  .fav-btn.pop svg{ animation:fav-pop .35s ease; }
+  @keyframes fav-pop{ 0%{ transform:scale(1);} 40%{ transform:scale(1.35);} 100%{ transform:scale(1);} }
+
+  /* noise panel */
+  .noise-panel{
+    margin:clamp(26px,5vh,44px) 0 clamp(44px,7vh,64px);
+    background:var(--surface); border:1px solid var(--hairline);
+    border-radius:22px; padding:clamp(18px,3vw,30px);
+    box-shadow:0 10px 30px var(--shadow);
+  }
+  .noise-panel h2{
+    margin:0 0 4px; font-weight:600; font-style:italic;
+    font-size:clamp(1.3rem,3vw,1.7rem);
+  }
+  .noise-panel .np-sub{ margin:0 0 16px; color:var(--ink-soft); font-size:clamp(.9rem,2vw,1.05rem); }
+  .noise-chips{ display:flex; gap:10px; flex-wrap:wrap; }
+  .noise-chip{
+    display:flex; align-items:center; gap:8px;
+    min-height:60px; padding:0 20px; border-radius:16px;
+    border:1.5px solid var(--hairline); background:var(--surface2);
+    color:var(--ink); font-weight:600; font-size:clamp(.95rem,2.2vw,1.1rem);
+    transition:all .2s ease;
+  }
+  .noise-chip .nc-ico{ font-size:1.3em; line-height:1; }
+  .noise-chip[aria-pressed="true"]{
+    border-color:var(--accent); background:var(--glow); color:var(--accent-deep);
+    box-shadow:0 0 0 1px var(--accent) inset;
+  }
+  html[data-theme="night"] .noise-chip[aria-pressed="true"]{ color:var(--accent); }
+  .noise-levels{ display:flex; gap:8px; margin-top:14px; align-items:center; }
+  .noise-levels .nl-label{ color:var(--ink-soft); font-size:.95rem; margin-right:6px; font-weight:600; }
+  .nl-btn{
+    min-height:48px; min-width:76px; border-radius:12px;
+    border:1.5px solid var(--hairline); color:var(--ink-soft); font-weight:600;
+  }
+  .nl-btn[aria-pressed="true"]{ border-color:var(--gold); color:var(--gold); }
+
+  .foot-note{
+    padding:0 0 clamp(30px,5vh,50px); color:var(--ink-faint);
+    font-size:.85rem; text-align:center; font-style:italic;
+  }
+
+  /* ============ SETTINGS ============ */
+  .overlay{
+    position:fixed; inset:0; z-index:60; display:none;
+    align-items:center; justify-content:center; padding:20px;
+    background:var(--scrim); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  }
+  .overlay.show{ display:flex; animation:fade-in .25s ease; }
+  @keyframes fade-in{ from{ opacity:0;} to{ opacity:1;} }
+  .sheet{
+    width:100%; max-width:600px; max-height:92vh; overflow-y:auto;
+    background:var(--surface); border:1px solid var(--hairline);
+    border-radius:24px; padding:clamp(22px,4vw,36px);
+    box-shadow:0 30px 70px var(--shadow);
+    display:flex; flex-direction:column; gap:clamp(18px,3vw,24px);
+  }
+  .sheet-title{
+    margin:0; font-size:clamp(1.5rem,4vw,2rem); font-weight:600; font-style:italic;
+    text-align:center;
+  }
+  .set-group{ display:flex; flex-direction:column; gap:10px; }
+  .set-label{ font-size:clamp(.95rem,2.2vw,1.1rem); font-weight:700; color:var(--ink-soft); letter-spacing:.04em; text-transform:uppercase; }
+  .set-label small{ text-transform:none; letter-spacing:0; font-weight:500; }
+  .set-options{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .set-options.cols-3{ grid-template-columns:repeat(3,1fr); }
+  .set-options.cols-5{ grid-template-columns:repeat(5,1fr); }
+  @media (max-width:430px){ .set-options.cols-5{ grid-template-columns:repeat(3,1fr); } }
+  .set-opt{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    min-height:72px; padding:10px 8px; text-align:center;
+    border-radius:16px; background:var(--surface2); color:var(--ink);
+    font-weight:600; font-size:clamp(.9rem,2.2vw,1.05rem);
+    border:1.5px solid var(--hairline); transition:all .18s ease;
+  }
+  .set-opt .so-ico{ font-size:1.4em; line-height:1; }
+  .set-opt:active{ transform:scale(.97); }
+  .set-opt[aria-pressed="true"]{
+    border-color:var(--accent); color:var(--accent-deep);
+    background:var(--glow); box-shadow:0 0 0 1px var(--accent) inset;
+  }
+  html[data-theme="night"] .set-opt[aria-pressed="true"],
+  html[data-theme="ember"] .set-opt[aria-pressed="true"]{ color:var(--accent); }
+  .set-name-input{
+    min-height:64px; padding:0 18px; border-radius:14px;
+    border:1.5px solid var(--hairline); background:var(--surface2);
+    color:var(--ink); font-size:1.15rem; font-family:inherit; width:100%;
+  }
+  .dim-row{ display:flex; align-items:center; gap:14px; }
+  .dim-row input[type=range]{
+    flex:1 1 auto; accent-color:var(--accent); height:44px; margin:0; background:transparent;
+  }
+  .dim-row .dim-val{ min-width:52px; text-align:right; color:var(--ink-soft); font-weight:600; }
+  .set-close{
+    align-self:center; min-height:64px; min-width:200px; padding:0 40px;
+    border-radius:999px; font-weight:700; font-size:clamp(1.05rem,2.6vw,1.25rem);
+    background:var(--ink); color:var(--bg); box-shadow:0 10px 24px var(--shadow);
+  }
+  html[data-theme="night"] .set-close{ background:var(--accent); color:#14100A; }
+  html[data-theme="ember"] .set-close{ background:var(--accent-deep); color:#FFE2CE; }
+
+  /* ============ PLAYER ============ */
+  #player{ background:radial-gradient(140% 100% at 50% 0%,var(--sky-b) 0%,var(--sky-a) 70%); }
+  #sky{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .p-inner{ position:relative; z-index:2; display:flex; flex-direction:column; height:100%; }
+
+  .p-top{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    padding:clamp(12px,2.5vh,22px) clamp(14px,3vw,28px) 0; gap:10px;
+  }
+  .p-stack{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+  .p-pill{
+    display:none; align-items:center; gap:8px;
+    font-weight:600; font-size:clamp(.9rem,2.1vw,1.05rem); color:var(--ink-soft);
+    background:var(--pill-bg); border:1px solid var(--hairline);
+    padding:9px 16px; border-radius:999px;
+    box-shadow:0 4px 14px var(--shadow); transition:transform .15s ease;
+  }
+  .p-pill.show{ display:inline-flex; }
+  button.p-pill:active{ transform:scale(.95); }
+  .p-pill svg{ width:1.05em; height:1.05em; }
+  .p-toggles{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+  .p-toggle{
+    display:flex; align-items:center; gap:8px;
+    min-height:58px; min-width:58px; padding:0 16px; border-radius:999px;
+    background:var(--pill-bg); border:1px solid var(--hairline);
+    color:var(--ink-soft); font-weight:600; font-size:clamp(.88rem,2vw,1.02rem);
+    box-shadow:0 4px 14px var(--shadow); transition:all .2s ease;
+  }
+  .p-toggle svg{ width:1.25em; height:1.25em; flex:0 0 auto; }
+  .p-toggle[aria-pressed="true"]{
+    background:var(--accent); border-color:var(--accent); color:#FFF6EE;
+  }
+  html[data-theme="ember"] .p-toggle[aria-pressed="true"]{ color:#1B0F08; }
+  #tg-shuffle{ display:none; }
+  #player.playlist #tg-shuffle{ display:flex; }
+
+  .p-title{
+    text-align:center; font-weight:600; font-style:italic;
+    font-size:clamp(1.2rem,3.2vw,2rem); color:var(--ink);
+    padding:clamp(10px,2vh,18px) clamp(60px,10vw,120px) 0; opacity:.92;
+  }
+  .p-dedic{
+    text-align:center; margin-top:6px;
+    font-size:clamp(.78rem,1.8vw,.95rem); font-weight:700;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold);
+  }
+  .p-dedic:empty{ display:none; }
+
+  .stage{
+    flex:1 1 auto; position:relative; overflow:hidden;
+    display:flex; align-items:flex-start; justify-content:center; min-height:0;
+  }
+  .track{ position:relative; width:100%; transition:transform .6s cubic-bezier(.3,.1,.2,1); }
+  .lyric-line{
+    font-family:'Iowan Old Style','Palatino Linotype',Palatino,Charter,Georgia,'Times New Roman',serif;
+    text-align:center; padding:.4em clamp(16px,5vw,90px);
+    font-weight:500; line-height:1.3;
+    font-size:clamp(1.9rem,5.4vw,3.9rem);
+    letter-spacing:.005em;
+    color:var(--ink); opacity:0;
+    transition:opacity .5s ease, transform .5s ease, color .5s ease;
+    transform:scale(.94); transform-origin:center;
+  }
+  .lyric-line.active{ transform:scale(1.06); }
+  .word{ white-space:nowrap; }
+  .syl{ display:inline-block; transition:color .16s ease, opacity .16s ease, transform .16s ease; }
+  .lyric-line.active .syl{ opacity:.3; }
+  .lyric-line.active .syl.sung{ opacity:1; }
+  .lyric-line.active .syl.cur{
+    opacity:1; color:var(--syl-cur);
+    transform:translateY(-2px);
+    text-shadow:0 0 22px var(--glow);
+    box-shadow:0 3px 0 -1px var(--accent);
+  }
+
+  /* progress + time labels */
+  .progress-row{
+    display:flex; align-items:center; gap:clamp(10px,2vw,16px);
+    padding:8px clamp(18px,6vw,90px);
+  }
+  .t-label{
+    flex:0 0 auto; font-variant-numeric:tabular-nums;
+    font-size:clamp(.82rem,1.9vw,1rem); font-weight:600; color:var(--ink-soft);
+    min-width:3.2em;
+  }
+  .t-label.tot{ text-align:right; }
+  .progress-wrap{ flex:1 1 auto; padding:12px 0; cursor:pointer; touch-action:none; }
+  .progress-wrap:focus-visible{ outline:3px solid var(--focus); outline-offset:2px; border-radius:999px; }
+  .progress{ height:10px; border-radius:999px; background:var(--track-bg); overflow:hidden; }
+  .progress-fill{
+    height:100%; width:0%; border-radius:999px;
+    background:linear-gradient(90deg,var(--gold),var(--accent));
+    transition:width .25s linear;
+  }
+
+  .controls{
+    display:flex; align-items:center; justify-content:center;
+    gap:clamp(18px,6vw,60px);
+    padding:clamp(14px,3vh,34px) 16px clamp(22px,4vh,46px);
+  }
+  .ctrl{
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%; background:var(--surface);
+    border:1px solid var(--hairline);
+    box-shadow:0 10px 24px var(--shadow);
+    color:var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .ctrl:active{ transform:scale(.92); }
+  .ctrl svg{ width:42%; height:42%; }
+  .ctrl.side{ width:clamp(80px,15vw,104px); height:clamp(80px,15vw,104px); }
+  .ctrl.play{
+    width:clamp(112px,23vw,152px); height:clamp(112px,23vw,152px);
+    background:var(--ink); color:var(--bg); border:none;
+    box-shadow:0 16px 36px var(--shadow);
+  }
+  html[data-theme="night"] .ctrl.play{ background:var(--accent); color:#14100A; }
+  html[data-theme="ember"] .ctrl.play{ background:var(--accent-deep); color:#FFE2CE; }
+  .ctrl.play svg{ width:38%; height:38%; }
+  .ctrl.skip{ display:none; width:clamp(48px,9vw,80px); height:clamp(48px,9vw,80px); color:var(--ink-soft); }
+  #player.playlist .ctrl.skip{ display:flex; }
+  #player.playlist .controls{ gap:clamp(10px,3vw,40px); padding-left:8px; padding-right:8px; }
+  #player.playlist .ctrl.side{ width:clamp(58px,11vw,96px); height:clamp(58px,11vw,96px); }
+  #player.playlist .ctrl.play{ width:clamp(88px,19vw,140px); height:clamp(88px,19vw,140px); }
+  @media (max-width:350px){
+    #player.playlist .controls{ gap:8px; }
+    #player.playlist .ctrl.side{ width:52px; height:52px; }
+    #player.playlist .ctrl.play{ width:80px; height:80px; }
+    #player.playlist .ctrl.skip{ width:44px; height:44px; }
+    .p-toggle{ min-height:50px; min-width:50px; padding:0 12px; }
+  }
+  .ctrl.play.idle{ animation:breathe 3.6s ease-in-out infinite; }
+  @keyframes breathe{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+
+  /* ============ END SCREEN ============ */
+  .end-overlay{
+    position:absolute; inset:0; z-index:5;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:clamp(22px,5vh,46px);
+    background:var(--end-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    opacity:0; pointer-events:none; transition:opacity .6s ease;
+  }
+  .end-overlay.show{ opacity:1; pointer-events:auto; }
+  .end-overlay h2{
+    margin:0; font-size:clamp(2.3rem,7.5vw,4.2rem); font-weight:600; font-style:italic;
+  }
+  .end-buttons{ display:flex; gap:clamp(16px,5vw,40px); flex-wrap:wrap; justify-content:center; padding:0 16px; }
+  .end-btn{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    min-width:clamp(136px,32vw,210px); min-height:118px;
+    padding:clamp(18px,4vw,30px); border-radius:20px;
+    background:var(--surface); border:1px solid var(--hairline);
+    box-shadow:0 12px 28px var(--shadow);
+    font-size:clamp(1.1rem,3.2vw,1.5rem); font-weight:600; color:var(--ink);
+    transition:transform .15s ease;
+  }
+  .end-btn:active{ transform:scale(.95); }
+  .end-btn svg{ width:clamp(2rem,6vw,2.8rem); height:clamp(2rem,6vw,2.8rem); color:var(--accent); }
+  .end-btn.primary{ border-color:var(--accent); }
+
+  /* ============ WIND-DOWN SHEET ============ */
+  #wind-sheet .set-options{ grid-template-columns:repeat(3,1fr); }
+  .ws-sub{ margin:0; text-align:center; color:var(--ink-soft); font-size:clamp(.95rem,2.2vw,1.1rem); line-height:1.5; }
+
+  /* ============ BLACKOUT ============ */
+  #blackout{
+    position:fixed; inset:0; z-index:300; background:#000;
+    display:none; align-items:center; justify-content:center; flex-direction:column; gap:26px;
+    cursor:pointer;
+  }
+  #blackout.show{ display:flex; animation:fade-in 1.2s ease; }
+  #blackout .b-moon{ width:64px; height:64px; opacity:.16; animation:moon-breathe 6s ease-in-out infinite; }
+  @keyframes moon-breathe{ 0%,100%{ opacity:.10; transform:scale(1);} 50%{ opacity:.2; transform:scale(1.06);} }
+  #blackout .b-hint{ color:#3A322A; font-size:.9rem; font-weight:600; letter-spacing:.06em; }
+
+  /* dimmer overlay — settings slider; sits under blackout */
+  #dim{ position:fixed; inset:0; z-index:250; background:#000; opacity:0; pointer-events:none; }
+
+  /* toast */
+  #toast{
+    position:fixed; left:50%; bottom:clamp(24px,5vh,44px); transform:translateX(-50%) translateY(20px);
+    z-index:280; background:var(--ink); color:var(--bg);
+    padding:12px 24px; border-radius:999px; font-weight:600;
+    font-size:clamp(.95rem,2.2vw,1.1rem);
+    opacity:0; pointer-events:none; transition:opacity .3s ease, transform .3s ease;
+    box-shadow:0 12px 30px var(--shadow); max-width:88vw; text-align:center;
+  }
+  html[data-theme="night"] #toast,html[data-theme="ember"] #toast{ background:var(--surface2); color:var(--ink); border:1px solid var(--hairline); }
+  #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ============ RESPONSIVE / MOTION ============ */
+  @media (max-width:600px){
+    .p-toggle .pt-label{ display:none; }
+    .p-toggle{ justify-content:center; padding:0 14px; }
+    .t-label{ min-width:2.8em; }
+  }
+  @media (max-height:480px){
+    .controls{ padding-top:8px; padding-bottom:12px; gap:clamp(16px,5vw,36px); }
+    .p-title{ padding-top:4px; font-size:clamp(1.05rem,3vw,1.4rem); }
+    .lyric-line{ font-size:clamp(1.5rem,6.5vw,2.3rem); padding:.28em 6vw; }
+    .ctrl.play{ width:clamp(84px,16vh,116px); height:clamp(84px,16vh,116px); }
+    .ctrl.side{ width:clamp(72px,13vh,92px); height:clamp(72px,13vh,92px); }
+    #player.playlist .ctrl.play{ width:clamp(76px,15vh,102px); height:clamp(76px,15vh,102px); }
+    #player.playlist .ctrl.side{ width:clamp(54px,11vh,80px); height:clamp(54px,11vh,80px); }
+    #player.playlist .ctrl.skip{ width:clamp(44px,9vh,60px); height:clamp(44px,9vh,60px); }
+    .p-toggle{ min-height:48px; }
+  }
+  @media (hover:hover) and (pointer:fine){
+    .song-row:hover{ background:var(--surface2); }
+    .ctrl:hover, .gear-btn:hover, .action-btn:hover, .end-btn:hover{ transform:translateY(-2px); }
+    .set-opt:hover, .noise-chip:hover{ border-color:var(--accent); }
+    .fav-btn:hover{ opacity:1; }
+    .cat-chip:hover{ border-color:var(--ink-soft); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ctrl.play.idle{ animation:none; }
+    .track{ transition:none; }
+    .row-wrap{ animation:none; }
+    #blackout .b-moon{ animation:none; }
+    .lyric-line{ transition:opacity .2s ease; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HOME ===================== -->
+<section id="home" class="screen active" aria-label="Babyoke inicio">
+  <div class="wrap">
+    <header class="home-head">
+      <div class="brand">
+        <h1 class="serif">Babyoke<svg class="moonmark" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3a9.5 9.5 0 1 0 5.8 14.9A8 8 0 0 1 15.5 3z" fill="var(--accent)"/></svg></h1>
+        <p id="greeting"></p>
+      </div>
+      <button id="btn-settings" class="gear-btn" aria-label="Ajustes" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg>
+      </button>
+    </header>
+
+    <div id="welcome" class="welcome" hidden>
+      <p id="w-text">Bienvenida a las noches tranquilas. ¿Cómo se llama tu bebé? (opcional)</p>
+      <div class="w-row">
+        <input id="w-name" type="text" maxlength="20" autocomplete="off" placeholder="Nombre del bebé" aria-label="Nombre del bebé" />
+        <button id="w-go" class="btn-solid">Empezar</button>
+      </div>
+    </div>
+
+    <button id="chip-continue" class="continue-chip" aria-label="Continuar donde quedaste">
+      <svg class="cc-ico" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      <span class="cc-txt"><span id="cc-label">Continuar</span> · <b id="cc-title"></b><span class="cc-sub" id="cc-sub"></span></span>
+    </button>
+
+    <div class="actions">
+      <button id="btn-playall" class="action-btn primary">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        <span id="lbl-playall">Reproducir todas</span>
+      </button>
+      <button id="btn-wind" class="action-btn wind">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15.5 3a9.5 9.5 0 1 0 5.8 14.9A8 8 0 0 1 15.5 3z"/></svg>
+        <span id="lbl-wind">Rutina de arrullo</span>
+      </button>
+      <button id="btn-playfavs" class="action-btn favs" hidden>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <span id="lbl-playfavs">Tocar favoritas</span>
+      </button>
+    </div>
+
+    <div class="cats" id="cats" role="group" aria-label="Filtrar canciones">
+      <button class="cat-chip" data-cat="all" aria-pressed="true">Todas</button>
+      <button class="cat-chip" data-cat="arrullo" aria-pressed="false">Arrullos</button>
+      <button class="cat-chip" data-cat="juego" aria-pressed="false">Juegos</button>
+    </div>
+
+    <div id="list" class="songbook"></div>
+
+    <section class="noise-panel" aria-labelledby="noise-title">
+      <h2 id="noise-title" class="serif">Calma continua</h2>
+      <p class="np-sub" id="noise-sub">Sonidos suaves que siguen sonando solos — con o sin música.</p>
+      <div class="noise-chips" id="noise-chips" role="group"></div>
+      <div class="noise-levels" role="group" aria-label="Volumen del sonido">
+        <span class="nl-label" id="nl-label">Nivel</span>
+        <button class="nl-btn" data-nlevel="soft" aria-pressed="false">Suave</button>
+        <button class="nl-btn" data-nlevel="med" aria-pressed="true">Medio</button>
+        <button class="nl-btn" data-nlevel="loud" aria-pressed="false">Fuerte</button>
+      </div>
+    </section>
+
+    <p class="foot-note" id="foot-note">Melodías tradicionales verificadas · todo suena desde tu dispositivo, sin internet</p>
+  </div>
+</section>
+
+<!-- ===================== SETTINGS ===================== -->
+<div id="settings-overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="set-title">
+  <div class="sheet">
+    <h2 id="set-title" class="sheet-title serif">Ajustes</h2>
+
+    <div class="set-group">
+      <span class="set-label" id="set-name-label">Bebé</span>
+      <input id="inp-name" class="set-name-input" type="text" maxlength="20" autocomplete="off" placeholder="Nombre (opcional)" />
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-lang-label">Idioma</span>
+      <div class="set-options">
+        <button class="set-opt" data-lang="es" aria-pressed="true"><span class="so-ico" aria-hidden="true">🇪🇸</span><span>Español</span></button>
+        <button class="set-opt" data-lang="en" aria-pressed="false"><span class="so-ico" aria-hidden="true">🇬🇧</span><span>English</span></button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-sound-label">Sonido</span>
+      <div class="set-options">
+        <button class="set-opt" data-synth="musicbox" aria-pressed="true"><span class="so-ico" aria-hidden="true">🎐</span><span data-s="musicbox">Caja musical</span></button>
+        <button class="set-opt" data-synth="harmony" aria-pressed="false"><span class="so-ico" aria-hidden="true">🎶</span><span data-s="harmony">Dúo</span></button>
+        <button class="set-opt" data-synth="warm" aria-pressed="false"><span class="so-ico" aria-hidden="true">🎻</span><span data-s="warm">Cálido</span></button>
+        <button class="set-opt" data-synth="mono" aria-pressed="false"><span class="so-ico" aria-hidden="true">🎵</span><span data-s="mono">Puro</span></button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-vol-label">Volumen</span>
+      <div class="set-options cols-3">
+        <button class="set-opt" data-vol="low" aria-pressed="false"><span class="so-ico" aria-hidden="true">🔈</span><span data-v="low">Suave</span></button>
+        <button class="set-opt" data-vol="med" aria-pressed="false"><span class="so-ico" aria-hidden="true">🔉</span><span data-v="med">Media</span></button>
+        <button class="set-opt" data-vol="high" aria-pressed="true"><span class="so-ico" aria-hidden="true">🔊</span><span data-v="high">Alta</span></button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-tempo-label">Ritmo</span>
+      <div class="set-options cols-3">
+        <button class="set-opt" data-tempo="calm" aria-pressed="false"><span class="so-ico" aria-hidden="true">🐢</span><span data-tp="calm">Calmo</span></button>
+        <button class="set-opt" data-tempo="normal" aria-pressed="true"><span class="so-ico" aria-hidden="true">🎵</span><span data-tp="normal">Normal</span></button>
+        <button class="set-opt" data-tempo="lively" aria-pressed="false"><span class="so-ico" aria-hidden="true">🐇</span><span data-tp="lively">Alegre</span></button>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-theme-label">Pantalla</span>
+      <div class="set-options cols-3">
+        <button class="set-opt" data-theme="day" aria-pressed="true"><span class="so-ico" aria-hidden="true">☀️</span><span data-th="day">Día</span></button>
+        <button class="set-opt" data-theme="night" aria-pressed="false"><span class="so-ico" aria-hidden="true">🌙</span><span data-th="night">Noche</span></button>
+        <button class="set-opt" data-theme="ember" aria-pressed="false"><span class="so-ico" aria-hidden="true">🕯️</span><span data-th="ember">Brasa</span></button>
+      </div>
+      <div class="dim-row">
+        <span class="set-label" id="dim-label" style="margin:0">Atenuar</span>
+        <input id="dim-range" type="range" min="0" max="70" step="5" value="0" aria-labelledby="dim-label" />
+        <span class="dim-val" id="dim-val">0%</span>
+      </div>
+    </div>
+
+    <div class="set-group">
+      <span class="set-label" id="set-sleep-label">Temporizador</span>
+      <div class="set-options cols-5">
+        <button class="set-opt" data-sleep="0" aria-pressed="true"><span data-sl="off">Apagado</span></button>
+        <button class="set-opt" data-sleep="15" aria-pressed="false"><span>15 min</span></button>
+        <button class="set-opt" data-sleep="30" aria-pressed="false"><span>30 min</span></button>
+        <button class="set-opt" data-sleep="45" aria-pressed="false"><span>45 min</span></button>
+        <button class="set-opt" data-sleep="60" aria-pressed="false"><span>60 min</span></button>
+      </div>
+    </div>
+
+    <button id="set-close" class="set-close">Listo</button>
+  </div>
+</div>
+
+<!-- ===================== WIND-DOWN SHEET ===================== -->
+<div id="wind-sheet" class="overlay" role="dialog" aria-modal="true" aria-labelledby="ws-title">
+  <div class="sheet">
+    <h2 id="ws-title" class="sheet-title serif">Rutina de arrullo</h2>
+    <p class="ws-sub" id="ws-sub">Arrullos cada vez más lentos y suaves. Al final, la música se apaga sola, quedan las olas y la pantalla descansa.</p>
+    <div class="set-options">
+      <button class="set-opt" data-min="15"><span class="so-ico" aria-hidden="true">🌒</span><span>15 min</span></button>
+      <button class="set-opt" data-min="25"><span class="so-ico" aria-hidden="true">🌓</span><span>25 min</span></button>
+      <button class="set-opt" data-min="40"><span class="so-ico" aria-hidden="true">🌕</span><span>40 min</span></button>
+    </div>
+    <button id="ws-cancel" class="set-close" style="background:var(--surface2);color:var(--ink);border:1.5px solid var(--hairline)">Cancelar</button>
+  </div>
+</div>
+
+<!-- ===================== PLAYER ===================== -->
+<section id="player" class="screen" aria-label="Reproductor">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="p-inner">
+    <div class="p-top">
+      <div class="p-stack">
+        <span id="pl-pos" class="p-pill" aria-live="polite"></span>
+        <button id="pill-sleep" class="p-pill" aria-label="Cancelar temporizador">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>
+          <span id="sleep-left"></span>
+        </button>
+        <button id="pill-wind" class="p-pill" aria-label="Cancelar rutina de arrullo">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 3a9.5 9.5 0 1 0 5.8 14.9A8 8 0 0 1 15.5 3z"/></svg>
+          <span id="wind-left"></span>
+        </button>
+        <button id="pill-noise" class="p-pill" aria-label="Apagar sonido de calma">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg>
+          <span id="noise-name"></span>
+        </button>
+      </div>
+      <div class="p-toggles">
+        <button id="tg-shuffle" class="p-toggle" aria-pressed="false" aria-label="Aleatorio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l10 10h4M21 17l-2.5-2.5M21 17l-2.5 2.5M3 17h4l2.5-2.5M14.5 9.5L17 7h4M21 7l-2.5-2.5M21 7l-2.5 2.5"/></svg>
+          <span class="pt-label" id="lbl-shuffle">Aleatorio</span>
+        </button>
+        <button id="tg-repeat" class="p-toggle" aria-pressed="false" aria-label="Repetir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+          <span class="pt-label" id="lbl-repeat">Repetir</span>
+        </button>
+        <button id="tg-voice" class="p-toggle" aria-pressed="false" aria-label="Modo voz">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <span class="pt-label" id="lbl-voice">Instrumental</span>
+        </button>
+        <button id="tg-black" class="p-toggle" aria-label="Pantalla a oscuras">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="9" opacity=".25"/><path d="M15.5 5a8 8 0 1 0 4.4 11.5A7 7 0 0 1 15.5 5z"/></svg>
+          <span class="pt-label" id="lbl-black">Oscuras</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="p-title" class="p-title serif"></div>
+    <div id="p-dedic" class="p-dedic"></div>
+
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="track" id="track"></div>
+    </div>
+
+    <div class="progress-row">
+      <span class="t-label" id="t-cur">0:00</span>
+      <div class="progress-wrap" id="seek" role="slider" tabindex="0" aria-label="Progreso"
+           aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+        <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <span class="t-label tot" id="t-tot">0:00</span>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl side" id="btn-home" aria-label="Volver al inicio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>
+      </button>
+      <button class="ctrl skip" id="btn-prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 5.5v13L8.5 12zM6 5.5h2.4v13H6z"/></svg>
+      </button>
+      <button class="ctrl play idle" id="btn-play" aria-label="Tocar">
+        <svg id="ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4.8v14.4L20 12z"/></svg>
+        <svg id="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg>
+      </button>
+      <button class="ctrl skip" id="btn-next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 5.5v13L15.5 12zM15.6 5.5H18v13h-2.4z"/></svg>
+      </button>
+      <button class="ctrl side" id="btn-restart" aria-label="Reiniciar canción">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5v6h6"/><path d="M4.5 11a8 8 0 1 1 2 5.3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="end-overlay" id="end-overlay" role="dialog" aria-modal="true">
+    <h2 id="end-title" class="serif">¿Otra?</h2>
+    <div class="end-buttons">
+      <button class="end-btn primary" id="btn-again">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+        <span id="lbl-again">Otra vez</span>
+      </button>
+      <button class="end-btn" id="btn-end-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>
+        <span id="lbl-end-home">Al inicio</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- global layers -->
+<div id="dim" aria-hidden="true"></div>
+<div id="blackout" role="button" tabindex="-1" aria-label="Tocar para volver">
+  <svg class="b-moon" viewBox="0 0 24 24" fill="#E8A25E" aria-hidden="true"><path d="M15.5 3a9.5 9.5 0 1 0 5.8 14.9A8 8 0 0 1 15.5 3z"/></svg>
+  <span class="b-hint" id="b-hint">toca para volver</span>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   1. MUSIC HELPERS
+   ============================================================ */
+const SEMITONES = { 'C':0,'C#':1,'D':2,'D#':3,'E':4,'F':5,'F#':6,'G':7,'G#':8,'A':9,'A#':10,'B':11 };
+function noteToMidi(name){
+  const m = name.match(/^([A-G]#?)(\d)$/);
+  return m ? (parseInt(m[2],10) + 1) * 12 + SEMITONES[m[1]] : -1;
+}
+function midiToFreq(midi){ return 440 * Math.pow(2, (midi - 69) / 12); }
+function majorScalePCs(rootLetter){
+  const r = SEMITONES[rootLetter] || 0;
+  return [0,2,4,5,7,9,11].map(x => (r + x) % 12);
+}
+function thirdBelowFreq(midi, scalePCs){
+  let count = 0;
+  for(let m = midi - 1; m >= midi - 13; m--){
+    if(scalePCs.includes(((m % 12) + 12) % 12)){ if(++count === 2) return midiToFreq(m); }
+  }
+  return midiToFreq(midi - 3);
+}
+const TEMPO_SPB = { calm:0.68, normal:0.55, lively:0.45 };
+let tempoMode = 'normal';
+try{ const t = localStorage.getItem('bk2-tempo'); if(TEMPO_SPB[t]) tempoMode = t; }catch(e){}
+let SEC_PER_BEAT = TEMPO_SPB[tempoMode];
+
+/* ============================================================
+   2. SONG DATA — source-verified traditional tunes.
+   Per-syllable format: { syl:[ [sylText, note, beats], ... ] }.
+   "" text = rest/melisma continuation; note "R" = silent rest.
+   Karaoke timing and melody compile from this ONE source, so
+   the highlight can never drift from the music.
+   mood: 'arrullo' (lullaby) | 'juego' (playful).
+   ============================================================ */
+const RAW_SONGS = [
+  /* -------- SPANISH -------- */
+  {
+    id:"estrellita", title:"Estrellita, ¿dónde estás?", language:"es", emoji:"⭐", mood:"arrullo",
+    phrases:[
+      { syl:[["Es","C4",1],["tre","C4",1],["lli","G4",1],["ta, ","G4",1],["¿dón","A4",1],["de ","A4",1],["estás? ","G4",2]] },
+      { syl:[["Me ","F4",1],["pre","F4",1],["gun","E4",1],["to ","E4",1],["qué ","D4",1],["se","D4",1],["rás. ","C4",2]] },
+      { syl:[["En ","G4",1],["el ","G4",1],["cie","F4",1],["lo ","F4",1],["o en ","E4",1],["el ","E4",1],["mar, ","D4",2]] },
+      { syl:[["un ","G4",1],["dia","G4",1],["man","F4",1],["te ","F4",1],["de ","E4",1],["ver","E4",1],["dad. ","D4",2]] },
+      { syl:[["Es","C4",1],["tre","C4",1],["lli","G4",1],["ta, ","G4",1],["¿dón","A4",1],["de ","A4",1],["estás? ","G4",2]] },
+      { syl:[["Me ","F4",1],["pre","F4",1],["gun","E4",1],["to ","E4",1],["qué ","D4",1],["se","D4",1],["rás. ","C4",2]] }
+    ]
+  },
+  {
+    id:"martinillo", title:"Martinillo", language:"es", emoji:"🔔", mood:"juego",
+    phrases:[
+      { syl:[["Mar","C4",1],["ti","D4",1],["ni","E4",1],["llo, ","C4",1],["mar","C4",1],["ti","D4",1],["ni","E4",1],["llo, ","C4",1]] },
+      { syl:[["¿dón","E4",1],["de ","F4",1],["estás? ","G4",2],["¿dón","E4",1],["de ","F4",1],["estás? ","G4",2]] },
+      { syl:[["To","G4",0.5],["ca ","A4",0.5],["la ","G4",0.5],["cam","F4",0.5],["pa","E4",1],["na, ","C4",1],["to","G4",0.5],["ca ","A4",0.5],["la ","G4",0.5],["cam","F4",0.5],["pa","E4",1],["na, ","C4",1]] },
+      { syl:[["din, ","C4",1],["don, ","G3",1],["dan. ","C4",2],["din, ","C4",1],["don, ","G3",1],["dan. ","C4",2]] }
+    ]
+  },
+  {
+    id:"pollitos", title:"Los pollitos dicen", language:"es", emoji:"🐤", mood:"arrullo",
+    phrases:[
+      { syl:[["Los ","C4",0.5],["po","D4",0.5],["lli","E4",0.5],["tos ","F4",0.5],["di","G4",1],["cen ","G4",1]] },
+      { syl:[["pí","A4",0.5],["o, ","C5",0.5],["pí","A4",0.5],["o, ","C5",0.5],["pí","A4",1],["o, ","G4",1]] },
+      { syl:[["cuan","F4",0.5],["do ","F4",0.5],["tie","F4",0.5],["nen ","G4",0.5],["ham","E4",1],["bre, ","E4",1]] },
+      { syl:[["cuan","D4",0.5],["do ","D4",0.5],["tie","D4",0.5],["nen ","E4",0.5],["frí","C4",1],["o. ","C4",1.5],["","R",0.5]] },
+      { syl:[["La ","C4",0.5],["ga","D4",0.5],["lli","E4",0.5],["na ","F4",0.5],["bus","G4",1],["ca ","G4",1]] },
+      { syl:[["el ","A4",0.5],["ma","C5",0.5],["íz ","A4",0.5],["y el ","C5",0.5],["tri","A4",1],["go, ","G4",1]] },
+      { syl:[["les ","F4",0.5],["da ","F4",0.5],["la ","F4",0.5],["co","G4",0.5],["mi","E4",1],["da ","E4",1]] },
+      { syl:[["y ","D4",0.5],["les ","D4",0.5],["pres","D4",0.5],["ta ","E4",0.5],["a","C4",1],["brigo. ","C4",2]] }
+    ]
+  },
+  {
+    id:"arroz", title:"Arroz con leche", language:"es", emoji:"🍚", mood:"juego", key:"F",
+    phrases:[
+      { syl:[["A","C4",0.5],["rroz ","F4",1.5],["con ","A4",0.5],["le","F4",1],["che, ","F4",0.5],["me ","C4",0.5],["quie","F4",1],["ro ","F4",0.5],["ca","A4",0.5],["sar, ","G4",1.5]] },
+      { syl:[["con ","A4",0.5],["u","A#4",0.5],["na ","A4",0.5],["se","G4",0.5],["ño","F4",0.5],["ri","E4",1],["ta ","E4",0.5],["de ","C4",0.5],["San ","D4",1],["Ni","E4",0.5],["co","E4",0.5],["lás, ","F4",1.5],["","R",0.5]] },
+      { syl:[["que ","C4",0.5],["se","F4",1.5],["pa ","A4",0.5],["co","F4",1],["ser, ","F4",0.5],["que ","C4",0.5],["se","F4",1],["pa ","F4",0.5],["bor","A4",0.5],["dar, ","G4",1.5]] },
+      { syl:[["que ","A4",0.5],["se","A#4",0.5],["pa a","A4",0.5],["brir ","G4",0.5],["la ","F4",0.5],["puer","E4",1],["ta ","E4",0.5],["pa","C4",0.5],["ra ir ","D4",1],["a ","E4",0.5],["ju","E4",0.5],["gar. ","F4",2]] }
+    ]
+  },
+  {
+    id:"pinpon", title:"Pin Pón", language:"es", emoji:"🪆", mood:"juego",
+    phrases:[
+      { syl:[["Pin ","G4",1],["Pón ","C5",1],["es ","G4",0.5],["un ","E4",0.5],["mu","F4",0.5],["ñe","G4",0.5],["co ","G4",2]] },
+      { syl:[["muy ","G4",1],["gua","C5",1],["po ","G4",0.5],["y ","E4",0.5],["de ","F4",0.5],["cartón, ","G4",2]] },
+      { syl:[["se ","G4",0.5],["la","C4",0.5],["va ","D4",0.5],["la ","E4",0.5],["ca","F4",0.5],["ri","G4",0.5],["ta ","G4",2]] },
+      { syl:[["con ","A4",0.5],["a","G4",0.5],["gua ","F4",0.5],["y ","E4",0.5],["con ","D4",0.5],["jabón. ","C4",2],["","R",0.5]] },
+      { syl:[["Se ","G4",1],["de","C5",1],["sen","G4",0.5],["re","E4",0.5],["da ","F4",0.5],["el ","G4",0.5],["pelo ","G4",2]] },
+      { syl:[["con ","G4",1],["pei","C5",1],["ne ","G4",0.5],["de ","E4",0.5],["mar","F4",0.5],["fil, ","G4",2]] },
+      { syl:[["y ","G4",0.5],["aun","C4",0.5],["que ","D4",0.5],["se ","E4",0.5],["da ","F4",0.5],["ti","G4",0.5],["rones ","G4",2]] },
+      { syl:[["no ","A4",0.5],["llo","G4",0.5],["ra ","F4",0.5],["ni ","E4",0.5],["ha","D4",0.5],["ce así. ","C4",2]] }
+    ]
+  },
+  {
+    id:"tengo", title:"Tengo una muñeca", language:"es", emoji:"🎀", mood:"juego",
+    phrases:[
+      { syl:[["Ten","G4",0.5],["go ","G4",0.5],["u","G4",0.5],["na ","A4",0.5],["mu","G4",0.5],["ñeca ","E4",0.5]] },
+      { syl:[["ves","C4",0.5],["ti","E4",0.5],["da ","G4",1],["de ","A4",1],["azul, ","G4",2]] },
+      { syl:[["con ","F4",0.5],["su ","F4",0.5],["ca","F4",0.5],["mi","G4",0.5],["si","F4",0.5],["ta ","E4",0.5]] },
+      { syl:[["y ","D4",0.5],["su ","E4",0.5],["ca","F4",1],["ne","D4",1],["sú. ","C4",2],["","R",0.5]] },
+      { syl:[["La ","G4",0.5],["sa","G4",0.5],["qué ","G4",0.5],["a ","A4",0.5],["pa","G4",0.5],["seo, ","E4",0.5]] },
+      { syl:[["se ","C4",0.5],["me ","E4",0.5],["cons","G4",1],["ti","A4",1],["pó, ","G4",2]] },
+      { syl:[["la ","F4",0.5],["ten","F4",0.5],["go en ","F4",0.5],["la ","G4",0.5],["ca","F4",0.5],["ma ","E4",0.5]] },
+      { syl:[["con ","D4",0.5],["mu","E4",0.5],["cho ","F4",1],["do","D4",1],["lor. ","C4",2]] }
+    ]
+  },
+  {
+    id:"arana", title:"La araña pequeñita", language:"es", emoji:"🕷️", mood:"juego",
+    phrases:[
+      { syl:[["La a","G3",0.5],["ra","C4",0.5],["ña ","C4",0.5],["pe","C4",0.5],["que","D4",0.5],["ñi","E4",0.5],["ta ","E4",1]] },
+      { syl:[["su","E4",0.5],["bió, ","D4",0.5],["su","C4",0.5],["bió, ","D4",0.5],["su","E4",0.5],["bió. ","C4",1.5],["","R",0.5]] },
+      { syl:[["Vi","E4",0.5],["no ","E4",0.5],["la ","F4",0.5],["llu","G4",1],["via ","G4",0.5]] },
+      { syl:[["y ","G4",0.5],["se ","F4",0.5],["la ","E4",0.5],["lle","F4",0.5],["vó. ","G4",0.5],["","E4",1.5],["","R",0.5]] },
+      { syl:[["Sa","C4",0.5],["lió ","C4",0.5],["el ","D4",0.5],["sol ","E4",1.5]] },
+      { syl:[["y ","E4",0.5],["to","D4",0.5],["do ","C4",0.5],["lo ","D4",0.5],["se","E4",0.5],["có. ","C4",1.5],["","R",0.5]] },
+      { syl:[["Y ","G3",0.5],["la a","G3",0.5],["ra","C4",0.5],["ña ","C4",0.5],["pe","C4",0.5],["que","D4",0.5],["ñi","E4",0.5],["ta ","E4",1]] },
+      { syl:[["su","E4",0.5],["bió, ","D4",0.5],["su","C4",0.5],["bió, ","D4",0.5],["su","E4",0.5],["bió. ","C4",2]] }
+    ]
+  },
+  {
+    id:"cucu", title:"Cucú, cantaba la rana", language:"es", emoji:"🐸", mood:"juego",
+    phrases:[
+      { syl:[["Cu","G4",0.5],["cú, ","C5",1],["cu","G4",0.5],["cú, ","C5",1],["can","G4",0.5],["ta","A4",0.5],["ba ","G4",0.5],["la ","F4",0.5],["ra","G4",0.5],["na; ","E4",0.5]] },
+      { syl:[["cu","G4",0.5],["cú, ","C5",1],["cu","G4",0.5],["cú, ","C5",1],["de","G4",0.5],["ba","A4",0.5],["jo ","G4",0.5],["del ","F4",0.5],["a","G4",0.5],["gua. ","E4",0.5],["","R",0.5]] },
+      { syl:[["Cu","G4",0.5],["cú, ","C5",1],["cu","G4",0.5],["cú, ","C5",1],["pa","G4",0.5],["só un ","A4",0.5],["ca","G4",0.5],["ba","F4",0.5],["lle","G4",0.5],["ro; ","E4",0.5]] },
+      { syl:[["cu","G4",0.5],["cú, ","C5",1],["cu","G4",0.5],["cú, ","C5",1],["de ","G4",0.5],["ca","A4",0.5],["pa y ","G4",0.5],["som","F4",0.5],["bre","G4",0.5],["ro. ","E4",1]] }
+    ]
+  },
+  {
+    id:"quellueva", title:"Que llueva, que llueva", language:"es", emoji:"🌧️", mood:"juego",
+    phrases:[
+      { syl:[["Que ","E4",0.5],["llue","G4",1],["va, ","G4",0.5],["que ","A4",0.5],["llue","G4",1],["va, ","G4",0.5],["la ","E4",0.5],["Vir","G4",0.5],["gen ","G4",0.5],["de ","G4",0.5],["la ","A4",0.5],["Cue","G4",1],["va, ","G4",0.5]] },
+      { syl:[["los ","E4",0.5],["pa","G4",0.5],["ja","G4",0.5],["ri","G4",0.5],["tos ","A4",0.5],["can","G4",1],["tan, ","G4",0.5],["las ","E4",0.5],["nu","G4",0.5],["bes ","G4",0.5],["se ","G4",0.5],["le","A4",0.5],["van","G4",1],["tan, ","G4",0.5]] },
+      { syl:[["¡que ","E4",0.5],["sí!, ","G4",1],["","R",0.5],["¡que ","E4",0.5],["no!, ","G4",1],["","R",0.5]] },
+      { syl:[["que ","E4",0.5],["cai","G4",0.5],["ga un ","A4",0.5],["cha","G4",0.5],["pa","F4",0.5],["rrón, ","G4",1],["","R",0.5]] },
+      { syl:[["de a","E4",0.5],["zú","G4",0.5],["car ","A4",0.5],["y ","G4",0.5],["tu","F4",0.5],["rrón, ","G4",1],["","R",0.5]] },
+      { syl:[["que ","E4",0.5],["rom","G4",0.5],["pa ","G4",0.5],["los ","G4",0.5],["cris","G4",0.5],["ta","A4",1],["les ","A4",0.5],["de ","A4",0.5],["la es","F4",1],["ta","A4",1],["ción. ","G4",2]] }
+    ]
+  },
+  {
+    id:"duermenegrito", title:"Duerme negrito", language:"es", emoji:"🌜", mood:"arrullo", key:"F",
+    phrases:[
+      { syl:[["Duer","C5",1.5],["me, ","A4",0.5],["duer","C5",1],["me ","A4",0.5],["ne","F4",0.5],["gri","G4",1.5],["","A4",0.5],["to, ","G4",3]] },
+      { syl:[["que ","C4",0.5],["tu ","C4",0.5],["ma","G4",0.5],["má es","G4",0.5],["tá en ","F4",0.5],["el ","G#4",0.5],["cam","G4",0.5],["po, ","F4",2.5]] },
+      { syl:[["ne","C4",0.5],["gri","D4",0.5],["to. ","F4",3.5],["","R",0.5]] },
+      { syl:[["Te ","A4",0.5],["va a ","C5",0.5],["tra","A4",0.5],["er ","C5",1],["co","F4",1],["dor","G4",0.5],["ni","C4",0.5],["ces ","C4",0.5],["pa","C4",0.5],["ra ","C4",0.5],["ti, ","C4",1.5],["","R",0.5]] },
+      { syl:[["te ","A4",0.5],["va a ","C5",0.5],["tra","A4",0.5],["er ","C5",1],["ri","F4",1],["ca ","G4",0.5],["fru","C4",0.5],["ta ","C4",0.5],["pa","C4",0.5],["ra ","C4",0.5],["ti, ","C4",1.5],["","R",0.5]] },
+      { syl:[["te ","A4",0.5],["va a ","C5",0.5],["tra","A4",0.5],["er ","C5",0.5],["car","F4",0.5],["ne ","F4",0.5],["de ","F4",0.5],["cer","G4",0.5],["do ","C4",0.5],["pa","C4",0.5],["ra ","C4",0.5],["ti, ","C4",1.5],["","R",0.5]] },
+      { syl:[["te ","A4",0.5],["va a ","C5",0.5],["tra","D5",0.5],["er ","C5",1],["mu","F4",0.5],["chas ","F4",0.5],["co","G4",0.5],["sas ","C4",0.5],["pa","C4",0.5],["ra ","C4",0.5],["ti. ","C4",1.5],["","R",0.5]] },
+      { syl:[["Duer","C5",1.5],["me, ","A4",0.5],["duer","C5",1],["me ","A4",0.5],["ne","F4",0.5],["gri","G4",1.5],["","A4",0.5],["to, ","G4",3]] },
+      { syl:[["que ","C4",0.5],["tu ","C4",0.5],["ma","G4",0.5],["má es","G4",0.5],["tá en ","F4",0.5],["el ","G#4",0.5],["cam","G4",0.5],["po, ","F4",2.5]] },
+      { syl:[["ne","C4",0.5],["gri","D4",0.5],["to. ","F4",4]] }
+    ]
+  },
+
+
+  /* -------- ENGLISH -------- */
+  {
+    id:"twinkle", title:"Twinkle, Twinkle Little Star", language:"en", emoji:"⭐", mood:"arrullo",
+    phrases:[
+      { syl:[["Twin","C4",1],["kle, ","C4",1],["twin","G4",1],["kle, ","G4",1],["lit","A4",1],["tle ","A4",1],["star,","G4",2]] },
+      { syl:[["how ","F4",1],["I ","F4",1],["won","E4",1],["der ","E4",1],["what ","D4",1],["you ","D4",1],["are.","C4",2]] },
+      { syl:[["Up ","G4",1],["a","G4",1],["bove ","F4",1],["the ","F4",1],["world ","E4",1],["so ","E4",1],["high,","D4",2]] },
+      { syl:[["like ","G4",1],["a ","G4",1],["dia","F4",1],["mond ","F4",1],["in ","E4",1],["the ","E4",1],["sky.","D4",2]] },
+      { syl:[["Twin","C4",1],["kle, ","C4",1],["twin","G4",1],["kle, ","G4",1],["lit","A4",1],["tle ","A4",1],["star,","G4",2]] },
+      { syl:[["how ","F4",1],["I ","F4",1],["won","E4",1],["der ","E4",1],["what ","D4",1],["you ","D4",1],["are.","C4",2]] }
+    ]
+  },
+  {
+    id:"baabaa", title:"Baa Baa Black Sheep", language:"en", emoji:"🐏", mood:"juego",
+    phrases:[
+      { syl:[["Baa, ","C4",1],["baa, ","C4",1],["black ","G4",1],["sheep, ","G4",1]] },
+      { syl:[["have ","A4",1],["you ","A4",1],["a","A4",0.5],["ny ","A4",0.5],["wool? ","G4",2]] },
+      { syl:[["Yes ","F4",1],["sir, ","F4",1],["yes ","E4",1],["sir, ","E4",1]] },
+      { syl:[["three ","D4",1],["bags ","D4",1],["full. ","C4",2],["","R",0.5]] },
+      { syl:[["One ","G4",1],["for ","G4",0.5],["the ","G4",0.5],["mas","F4",1],["ter, ","F4",1]] },
+      { syl:[["one ","E4",1],["for ","E4",0.5],["the ","E4",0.5],["dame, ","D4",2]] },
+      { syl:[["and ","C4",0.5],["one ","G4",0.5],["for ","G4",0.5],["the ","G4",0.5],["lit","F4",0.5],["tle ","F4",0.5],["boy ","F4",1]] },
+      { syl:[["who ","F4",0.5],["lives ","E4",0.5],["down ","E4",0.5],["the ","E4",0.5],["lane. ","D4",2]] }
+    ]
+  },
+  {
+    id:"mary", title:"Mary Had a Little Lamb", language:"en", emoji:"🐑", mood:"juego",
+    phrases:[
+      { syl:[["Ma","E4",1],["ry ","D4",1],["had ","C4",1],["a ","D4",1],["lit","E4",1],["tle ","E4",1],["lamb, ","E4",2]] },
+      { syl:[["lit","D4",1],["tle ","D4",1],["lamb, ","D4",2],["lit","E4",1],["tle ","G4",1],["lamb. ","G4",2]] },
+      { syl:[["Ma","E4",1],["ry ","D4",1],["had ","C4",1],["a ","D4",1],["lit","E4",1],["tle ","E4",1],["lamb, ","E4",1]] },
+      { syl:[["its ","E4",1],["fleece ","D4",1],["was ","D4",1],["white ","E4",1],["as ","D4",1],["snow. ","C4",2]] }
+    ]
+  },
+  {
+    id:"itsy", title:"The Itsy Bitsy Spider", language:"en", emoji:"🕷️", mood:"juego",
+    phrases:[
+      { syl:[["The ","G3",0.5],["it","C4",0.5],["sy ","C4",0.5],["bit","C4",0.5],["sy ","D4",0.5],["spi","E4",0.5],["der ","E4",1]] },
+      { syl:[["climbed ","E4",0.5],["up ","D4",0.5],["the ","C4",0.5],["wa","D4",0.5],["ter ","E4",0.5],["spout. ","C4",1.5],["","R",0.5]] },
+      { syl:[["Down ","E4",0.5],["came ","E4",0.5],["the ","F4",0.5],["rain ","G4",1.5]] },
+      { syl:[["and ","G4",0.5],["washed ","F4",0.5],["the ","E4",0.5],["spi","F4",0.5],["der ","G4",0.5],["out. ","E4",1.5],["","R",0.5]] },
+      { syl:[["Out ","C4",0.5],["came ","C4",0.5],["the ","D4",0.5],["sun ","E4",1.5]] },
+      { syl:[["and ","E4",0.5],["dried ","D4",0.5],["up ","C4",0.5],["all ","D4",0.5],["the ","E4",0.5],["rain, ","C4",1.5],["","R",0.5]] },
+      { syl:[["and ","G3",0.5],["the ","G3",0.5],["it","C4",0.5],["sy ","C4",0.5],["bit","C4",0.5],["sy ","D4",0.5],["spi","E4",0.5],["der ","E4",1]] },
+      { syl:[["climbed ","E4",0.5],["up ","D4",0.5],["the ","C4",0.5],["spout ","D4",0.5],["a","E4",0.5],["gain. ","C4",2]] }
+    ]
+  },
+  {
+    id:"oldmac", title:"Old MacDonald Had a Farm", language:"en", emoji:"🐄", mood:"juego", key:"G",
+    phrases:[
+      { syl:[["Old ","G4",1],["Mac","G4",1],["Do","G4",1],["nald ","D4",1],["had ","E4",1],["a ","E4",1],["farm, ","D4",2]] },
+      { syl:[["E-","B4",1],["I-","B4",1],["E-","A4",1],["I-","A4",1],["O! ","G4",2]] },
+      { syl:[["And ","D4",1],["on ","G4",1],["his ","G4",1],["farm ","G4",1],["he ","D4",1],["had ","E4",1],["a ","E4",1],["cow, ","D4",2]] },
+      { syl:[["E-","B4",1],["I-","B4",1],["E-","A4",1],["I-","A4",1],["O! ","G4",2]] },
+      { syl:[["With ","D4",0.5],["a ","D4",0.5],["moo-","G4",1],["moo ","G4",1],["here, ","G4",1]] },
+      { syl:[["and ","D4",0.5],["a ","D4",0.5],["moo-","G4",1],["moo ","G4",1],["there, ","G4",1]] },
+      { syl:[["here ","G4",0.5],["a ","G4",0.5],["moo, ","G4",1],["there ","G4",0.5],["a ","G4",0.5],["moo, ","G4",1]] },
+      { syl:[["eve","G4",0.5],["ry","G4",0.5],["where ","G4",0.5],["a ","G4",0.5],["moo-","G4",1],["moo. ","G4",1]] },
+      { syl:[["Old ","G4",1],["Mac","G4",1],["Do","G4",1],["nald ","D4",1],["had ","E4",1],["a ","E4",1],["farm, ","D4",2]] },
+      { syl:[["E-","B4",1],["I-","B4",1],["E-","A4",1],["I-","A4",1],["O! ","G4",2]] }
+    ]
+  },
+  {
+    id:"row", title:"Row, Row, Row Your Boat", language:"en", emoji:"🚣", mood:"arrullo",
+    phrases:[
+      { syl:[["Row, ","C4",1.5],["row, ","C4",1.5],["row ","C4",1],["your ","D4",0.5],["boat, ","E4",1.5]] },
+      { syl:[["gent","E4",1],["ly ","D4",0.5],["down ","E4",1],["the ","F4",0.5],["stream. ","G4",3]] },
+      { syl:[["Mer","C5",0.5],["ri","C5",0.5],["ly, ","C5",0.5],["mer","G4",0.5],["ri","G4",0.5],["ly, ","G4",0.5],["mer","E4",0.5],["ri","E4",0.5],["ly, ","E4",0.5],["mer","C4",0.5],["ri","C4",0.5],["ly, ","C4",0.5]] },
+      { syl:[["life ","G4",1],["is ","F4",0.5],["but ","E4",1],["a ","D4",0.5],["dream. ","C4",3]] }
+    ]
+  },
+  {
+    id:"london", title:"London Bridge", language:"en", emoji:"🌉", mood:"juego",
+    phrases:[
+      { syl:[["Lon","G4",0.75],["don ","A4",0.25],["Bridge ","G4",0.5],["is ","F4",0.5],["fall","E4",0.5],["ing ","F4",0.5],["down, ","G4",1]] },
+      { syl:[["fall","D4",0.5],["ing ","E4",0.5],["down, ","F4",1],["fall","E4",0.5],["ing ","F4",0.5],["down, ","G4",1]] },
+      { syl:[["Lon","G4",0.75],["don ","A4",0.25],["Bridge ","G4",0.5],["is ","F4",0.5],["fall","E4",0.5],["ing ","F4",0.5],["down, ","G4",1]] },
+      { syl:[["my ","D4",1],["fair ","G4",1],["la","E4",0.5],["dy. ","C4",1.5]] }
+    ]
+  },
+  {
+    id:"thisoldman", title:"This Old Man", language:"en", emoji:"👴", mood:"juego",
+    phrases:[
+      { syl:[["This ","G4",0.5],["old ","E4",0.5],["man, ","G4",1],["he ","G4",0.5],["played ","E4",0.5],["one, ","G4",1]] },
+      { syl:[["he ","A4",0.5],["played ","G4",0.5],["knick-","F4",0.5],["knack ","E4",0.5],["on ","D4",0.5],["my ","E4",0.5],["thumb, ","F4",1]] },
+      { syl:[["with ","E4",0.5],["a ","F4",0.5],["knick-","G4",0.5],["knack ","C4",0.5],["pad","C4",0.5],["dy-","C4",0.5],["whack, ","C4",1]] },
+      { syl:[["give ","C4",0.5],["a ","D4",0.5],["dog ","E4",0.5],["a ","F4",0.5],["bone, ","G4",1.5]] },
+      { syl:[["this ","G4",0.5],["old ","D4",0.5],["man ","D4",0.5],["came ","F4",0.5],["roll","E4",0.5],["ing ","D4",0.5],["home. ","C4",2]] }
+    ]
+  },
+  {
+    id:"hotcross", title:"Hot Cross Buns", language:"en", emoji:"🥯", mood:"juego",
+    phrases:[
+      { syl:[["Hot ","E4",1],["cross ","D4",1],["buns! ","C4",2]] },
+      { syl:[["Hot ","E4",1],["cross ","D4",1],["buns! ","C4",2]] },
+      { syl:[["One ","C4",0.5],["a ","C4",0.5],["pen","C4",0.5],["ny, ","C4",0.5],["two ","D4",0.5],["a ","D4",0.5],["pen","D4",0.5],["ny, ","D4",0.5]] },
+      { syl:[["hot ","E4",1],["cross ","D4",1],["buns! ","C4",2]] }
+    ]
+  },
+  {
+    id:"brahms", title:"Brahms' Lullaby", language:"en", emoji:"🌙", mood:"arrullo",
+    phrases:[
+      { text:"Lullaby and good night,",     notes:[["E4",0.5],["E4",0.5],["G4",2],["E4",0.5],["E4",0.5],["G4",2]] },
+      { text:"with roses bedight,",          notes:[["E4",0.5],["G4",0.5],["C5",1],["B4",0.5],["A4",0.5],["A4",0.5],["G4",2]] },
+      { text:"with lilies o'erspread",       notes:[["D4",0.5],["E4",0.5],["F4",2],["D4",0.5],["D4",0.5],["E4",0.5],["F4",2]] },
+      { text:"is baby's wee bed.",           notes:[["D4",0.5],["F4",0.5],["B4",1],["A4",0.5],["G4",0.5],["B4",0.5],["C5",2]] },
+      { text:"Lay thee down now and rest,",  notes:[["C4",1],["C4",0.5],["C5",1.5],["A4",1],["F4",0.5],["G4",1.5]] },
+      { text:"may thy slumber be blest.",    notes:[["E4",1],["C4",0.5],["F4",1.5],["G4",1],["A4",0.5],["G4",1.5]] },
+      { text:"Lay thee down now and rest,",  notes:[["C4",1],["C4",0.5],["C5",1.5],["A4",1],["F4",0.5],["G4",1.5]] },
+      { text:"may thy slumber be blest.",    notes:[["E4",1],["C4",0.5],["F4",0.5],["E4",0.5],["D4",0.5],["C4",2]] }
+    ]
+  }
+];
+
+/* ============================================================
+   3. BUILD — compile a raw song at a given seconds-per-beat.
+   Melody AND karaoke times come from the same walk of the data.
+   ============================================================ */
+function buildSong(raw, spb){
+  const SPB = spb || SEC_PER_BEAT;
+  let t = 0;
+  const melody = [], lines = [], flatSyls = [];
+  const scalePCs = majorScalePCs(raw.key || 'C');
+
+  const addNote = (note, beats) => {
+    const dur = beats * SPB;
+    if(note !== 'R'){
+      const midi = noteToMidi(note);
+      melody.push({ note, freq: midiToFreq(midi), h: thirdBelowFreq(midi, scalePCs),
+                    duration: +dur.toFixed(4), start: +t.toFixed(4) });
+    }
+    t += dur;
+  };
+
+  for(const ph of raw.phrases){
+    const lineStart = t;
+    const syls = [];
+    if(ph.syl){
+      for(const [text, note, beats] of ph.syl){
+        if(text !== '') syls.push({ time:+t.toFixed(4), text });
+        addNote(note, beats);
+      }
+    } else {                       // legacy whole-line format (melismatic tunes)
+      syls.push({ time:+t.toFixed(4), text: ph.text });
+      for(const [note, beats] of ph.notes) addNote(note, beats);
+    }
+    const li = lines.length;
+    syls.forEach((s, i) => flatSyls.push({ time:s.time, line:li, i }));
+    lines.push({ time:+lineStart.toFixed(4), text:syls.map(s => s.text).join(''), syls });
+  }
+
+  return {
+    id:raw.id, title:raw.title, language:raw.language, emoji:raw.emoji, mood:raw.mood,
+    melody, duration:+(t + 0.4).toFixed(2),
+    lyrics:lines.map(l => ({ time:l.time, text:l.text })), lines, flatSyls
+  };
+}
+// Rebuilt on tempo change — never cache song objects across it; re-find by id.
+let SONGS = RAW_SONGS.map(r => buildSong(r));
+
+/* ============================================================
+   4. AUDIO ENGINE — Web Audio synth + look-ahead scheduler.
+   getPos() is the transport clock the karaoke reads each frame.
+   Graph: note → filter → comp → voiceGain → master → windGain → fadeGain → out
+          noise → nGain ────────────────────────────────────────↗ (fadeGain)
+   voiceGain = sing-along mode; windGain = wind-down ramp;
+   fadeGain = sleep-timer fade. All audio-thread, throttle-proof.
+   ============================================================ */
+const SYNTH_MODES = ['musicbox','harmony','warm','mono'];
+let synthMode = 'musicbox';
+try{ const s = localStorage.getItem('bk2-synth'); if(SYNTH_MODES.includes(s)) synthMode = s; }catch(e){}
+const VOLUME_LEVELS = { low:0.35, med:0.6, high:0.9 };
+let volumeMode = 'high';
+try{ const v = localStorage.getItem('bk2-vol'); if(VOLUME_LEVELS[v]) volumeMode = v; }catch(e){}
+const VOICE_MODES = ['full','guide','lyrics'];        // instrumental / soft guide / lyrics-only
+const VOICE_GAIN  = { full:1, guide:0.3, lyrics:0.0001 };
+let voiceMode = 'full';
+try{ const vm = localStorage.getItem('bk2-voice'); if(VOICE_MODES.includes(vm)) voiceMode = vm; }catch(e){}
+
+// iOS plays Web Audio as "ambient" (muted by the ring switch). A looping silent
+// <audio> element started on a gesture flips the session to "playback".
+function makeSilentAudioEl(){
+  const sr = 8000, n = Math.floor(sr * 0.4), bytes = 44 + n * 2;
+  const dv = new DataView(new ArrayBuffer(bytes));
+  const w = (o, s) => { for(let i=0;i<s.length;i++) dv.setUint8(o+i, s.charCodeAt(i)); };
+  w(0,'RIFF'); dv.setUint32(4, bytes-8, true); w(8,'WAVE'); w(12,'fmt ');
+  dv.setUint32(16,16,true); dv.setUint16(20,1,true); dv.setUint16(22,1,true);
+  dv.setUint32(24,sr,true); dv.setUint32(28,sr*2,true); dv.setUint16(32,2,true); dv.setUint16(34,16,true);
+  w(36,'data'); dv.setUint32(40, n*2, true);
+  const a = document.createElement('audio');
+  a.src = URL.createObjectURL(new Blob([dv.buffer], { type:'audio/wav' }));
+  a.loop = true; a.preload = 'auto'; a.playsInline = true; a.setAttribute('playsinline','');
+  return a;
+}
+
+// Shadows window.Audio on purpose — never use `new Audio()` in this file.
+const Audio = {
+  ctx:null, master:null, fadeGain:null, windGain:null, voiceGain:null, filter:null, comp:null, silentEl:null,
+  voices:[], melody:[], nextIdx:0,
+  transportStart:0, offset:0, playing:false, schedTimer:null,
+  duration:0, onended:null,
+
+  init(){
+    if(this.ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    this.ctx = new AC();
+    this.filter = this.ctx.createBiquadFilter();
+    this.filter.type = 'lowpass';
+    this.filter.frequency.value = (synthMode === 'musicbox') ? 5200 : 3200;
+    this.filter.Q.value = 0.4;
+    this.comp = this.ctx.createDynamicsCompressor();
+    this.comp.threshold.value = -10; this.comp.knee.value = 14;
+    this.comp.ratio.value = 4; this.comp.attack.value = 0.003; this.comp.release.value = 0.2;
+    this.voiceGain = this.ctx.createGain();
+    this.voiceGain.gain.value = VOICE_GAIN[voiceMode];
+    this.master = this.ctx.createGain();
+    this.master.gain.value = VOLUME_LEVELS[volumeMode];
+    this.windGain = this.ctx.createGain();
+    this.windGain.gain.value = 1;
+    this.fadeGain = this.ctx.createGain();
+    this.fadeGain.gain.value = 1;
+    this.filter.connect(this.comp);
+    this.comp.connect(this.voiceGain);
+    this.voiceGain.connect(this.master);
+    this.master.connect(this.windGain);
+    this.windGain.connect(this.fadeGain);
+    this.fadeGain.connect(this.ctx.destination);
+  },
+
+  setMelody(m){ this.melody = m; },
+
+  unlock(){
+    this.init();
+    if(this.ctx.state !== 'running') this.ctx.resume();
+    try{
+      const b = this.ctx.createBuffer(1, 1, 22050);
+      const s = this.ctx.createBufferSource();
+      s.buffer = b; s.connect(this.ctx.destination); s.start(0);
+    }catch(e){}
+    this.keepSession();
+  },
+
+  keepSession(){
+    try{
+      if(!this.silentEl) this.silentEl = makeSilentAudioEl();
+      const p = this.silentEl.play();
+      if(p && p.catch) p.catch(()=>{});
+    }catch(e){}
+  },
+
+  getPos(){ return this.playing ? (this.ctx.currentTime - this.transportStart) : this.offset; },
+
+  play(){
+    this.init();
+    if(this.ctx.state !== 'running') this.ctx.resume();
+    this.keepSession();
+    this.transportStart = this.ctx.currentTime - this.offset;
+    this.playing = true;
+    this.nextIdx = this.melody.findIndex(n => n.start >= this.offset - 0.0001);
+    if(this.nextIdx < 0) this.nextIdx = this.melody.length;
+    this._schedule();
+    clearInterval(this.schedTimer);
+    this.schedTimer = setInterval(() => this._tickAudio(), 25);
+  },
+
+  // Interval heartbeat: while the tab is hidden rAF freezes, so this must also
+  // handle song-end (playlist advance), the sleep timer and the wind-down.
+  _tickAudio(){
+    this._schedule();
+    if(this.playing && this.duration && this.getPos() >= this.duration && this.onended) this.onended();
+    checkSleepTimer();
+    checkWind();
+  },
+
+  _schedule(){
+    // Hidden tabs throttle intervals to ~1/s — schedule far enough ahead.
+    const horizon = this.getPos() + (document.hidden ? 2.5 : 0.15);
+    while(this.nextIdx < this.melody.length && this.melody[this.nextIdx].start < horizon){
+      const n = this.melody[this.nextIdx];
+      if(n.freq > 0) this._voice(n, this.transportStart + n.start, n.duration);
+      this.nextIdx++;
+    }
+  },
+
+  _voice(n, when, dur){
+    const freq = n.freq;
+    const g = this.ctx.createGain();
+    g.connect(this.filter);
+    const oscs = [];
+    let endOsc = null, endAt = -1;
+    const add = (f, type, gain, detune, env) => {
+      const o = this.ctx.createOscillator();
+      o.type = type; o.frequency.value = f; if(detune) o.detune.value = detune;
+      const pg = this.ctx.createGain();
+      if(env){
+        pg.gain.setValueAtTime(0.0001, when);
+        pg.gain.linearRampToValueAtTime(gain, when + 0.002);
+        pg.gain.exponentialRampToValueAtTime(0.0001, when + 0.002 + env);
+      } else { pg.gain.value = gain; }
+      o.connect(pg); pg.connect(g);
+      const stopAt = when + (env ? env + 0.12 : dur + 0.08);
+      o.start(when); o.stop(stopAt);
+      if(stopAt > endAt){ endAt = stopAt; endOsc = o; }
+      oscs.push(o);
+    };
+
+    if(synthMode === 'musicbox'){
+      g.gain.value = 1;
+      const dec = Math.min(2.2, dur + 1.3);
+      add(freq,        'sine', 0.30, 0, dec * 1.0 );
+      add(freq * 2,    'sine', 0.42, 0, dec * 0.8 );
+      add(freq * 3.01, 'sine', 0.16, 0, dec * 0.45);
+      add(freq * 4.02, 'sine', 0.10, 0, dec * 0.30);
+      add(freq * 5.4,  'sine', 0.07, 0, dec * 0.18);
+      add(freq * 6.8,  'sine', 0.04, 0, dec * 0.10);
+    } else {
+      const peak = synthMode === 'warm' ? 0.34 : (synthMode === 'harmony' ? 0.36 : 0.5);
+      const atk = 0.02, rel = Math.min(0.18, dur * 0.5);
+      const relStart = when + Math.max(atk, dur - rel);
+      g.gain.setValueAtTime(0.0001, when);
+      g.gain.linearRampToValueAtTime(peak, when + atk);
+      g.gain.setValueAtTime(peak, relStart);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+      if(synthMode === 'warm'){
+        add(freq,       'triangle', 0.55, 0);
+        add(freq,       'triangle', 0.40, 7);
+        add(freq * 0.5, 'sine',     0.55, 0);
+        add(freq * 2,   'sine',     0.16, 0);
+      } else if(synthMode === 'harmony'){
+        const h = n.h || freq * 0.7937;
+        add(freq,       'triangle', 0.50, 0);
+        add(freq * 0.5, 'sine',     0.26, 0);
+        add(h,          'triangle', 0.34, 0);
+        add(h * 0.5,    'sine',     0.10, 0);
+      } else {
+        add(freq, 'triangle', 1.0, 0);
+      }
+    }
+
+    const v = { oscs, g };
+    this.voices.push(v);
+    endOsc.onended = () => { const i = this.voices.indexOf(v); if(i >= 0) this.voices.splice(i, 1); };
+  },
+
+  pause(){
+    if(!this.playing) return;
+    this.offset = this.getPos();
+    this.playing = false;
+    clearInterval(this.schedTimer);
+    this._silence();
+    // keep the heartbeat alive for the sleep timer / wind-down while noise plays
+    if(state.sleepAt || state.windAt || Noise.type) startIdleBeat();
+  },
+
+  _silence(){
+    const now = this.ctx ? this.ctx.currentTime : 0;
+    for(const v of this.voices){
+      try{
+        v.g.gain.cancelScheduledValues(now);
+        v.g.gain.setValueAtTime(Math.max(v.g.gain.value, 0.0001), now);
+        v.g.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+        v.oscs.forEach(o => o.stop(now + 0.08));
+      }catch(e){}
+    }
+    this.voices = [];
+  },
+
+  stop(){ this.pause(); this.offset = 0; }
+};
+
+// A slow heartbeat when music is paused but timers/noise still run (hidden-tab safe).
+let idleBeat = null;
+function startIdleBeat(){
+  if(idleBeat) return;
+  idleBeat = setInterval(() => {
+    checkSleepTimer(); checkWind();
+    if(Audio.playing || (!state.sleepAt && !state.windAt && !Noise.type)){
+      clearInterval(idleBeat); idleBeat = null;
+    }
+  }, 1000);
+}
+
+/* ============================================================
+   4b. NOISE ENGINE — synthesized calm sounds. Looping buffers +
+   audio-thread LFOs: keeps playing with the screen off, forever.
+   ============================================================ */
+const NOISE_LEVELS = { soft:0.16, med:0.3, loud:0.5 };
+const NOISE_TYPES = ['rain','ocean','heart','shush','pink'];
+let noiseLevel = 'med';
+try{ const nl = localStorage.getItem('bk2-noise-level'); if(NOISE_LEVELS[nl]) noiseLevel = nl; }catch(e){}
+
+const Noise = {
+  type:null, nodes:[], gain:null, buffers:{},
+
+  _buf(kind){
+    if(this.buffers[kind]) return this.buffers[kind];
+    const ctx = Audio.ctx, sr = ctx.sampleRate;
+    let buf;
+    if(kind === 'heart'){
+      const dur = 1.9, n = Math.floor(sr * dur);           // ~63 bpm lub-dub
+      buf = ctx.createBuffer(1, n, sr);
+      const d = buf.getChannelData(0);
+      const thump = (t, c, f, amp) => amp * Math.sin(2 * Math.PI * f * (t - c)) * Math.exp(-Math.pow((t - c) / 0.05, 2));
+      for(let i = 0; i < n; i++){
+        const t = i / sr;
+        d[i] = thump(t, 0.12, 52, 0.9) + thump(t, 0.34, 44, 0.55);
+      }
+    } else {
+      const n = sr * 4;
+      buf = ctx.createBuffer(1, n, sr);
+      const d = buf.getChannelData(0);
+      if(kind === 'white'){
+        for(let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+      } else if(kind === 'pink'){                          // Paul Kellet approximation
+        let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+        for(let i = 0; i < n; i++){
+          const w = Math.random() * 2 - 1;
+          b0 = 0.99886*b0 + w*0.0555179; b1 = 0.99332*b1 + w*0.0750759;
+          b2 = 0.96900*b2 + w*0.1538520; b3 = 0.86650*b3 + w*0.3104856;
+          b4 = 0.55000*b4 + w*0.5329522; b5 = -0.7616*b5 - w*0.0168980;
+          d[i] = (b0+b1+b2+b3+b4+b5+b6 + w*0.5362) * 0.11;
+          b6 = w * 0.115926;
+        }
+      } else {                                             // brown
+        let last = 0;
+        for(let i = 0; i < n; i++){
+          const w = Math.random() * 2 - 1;
+          last = (last + 0.02 * w) / 1.02;
+          d[i] = last * 3.5;
+        }
+      }
+    }
+    this.buffers[kind] = buf;
+    return buf;
+  },
+
+  start(type){
+    if(!NOISE_TYPES.includes(type)) return;
+    Audio.init();
+    if(Audio.ctx.state !== 'running') Audio.ctx.resume();
+    Audio.keepSession();
+    this.stop(true);
+    const ctx = Audio.ctx;
+    this.gain = ctx.createGain();
+    this.gain.gain.value = 0.0001;
+    this.gain.connect(Audio.fadeGain);          // sleep timer fades noise too
+
+    const src = ctx.createBufferSource();
+    src.loop = true;
+    const nodes = [src];
+    let head = src;
+    const bq = (t, f, q) => { const b = ctx.createBiquadFilter(); b.type = t; b.frequency.value = f; if(q) b.Q.value = q; nodes.push(b); return b; };
+
+    if(type === 'rain'){
+      src.buffer = this._buf('white');
+      const hp = bq('highpass', 500), bp = bq('lowpass', 4200);
+      head.connect(hp); hp.connect(bp); head = bp;
+    } else if(type === 'ocean'){
+      src.buffer = this._buf('brown');
+      const lp = bq('lowpass', 620);
+      head.connect(lp); head = lp;
+      const amp = ctx.createGain(); amp.gain.value = 0.62;
+      const lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.07;
+      const depth = ctx.createGain(); depth.gain.value = 0.38;
+      lfo.connect(depth); depth.connect(amp.gain); lfo.start();
+      head.connect(amp); head = amp;
+      nodes.push(amp, lfo, depth);
+    } else if(type === 'heart'){
+      src.buffer = this._buf('heart');
+      const lp = bq('lowpass', 220);
+      head.connect(lp); head = lp;
+    } else if(type === 'shush'){
+      src.buffer = this._buf('white');
+      const bp = bq('bandpass', 1500, 0.9);
+      head.connect(bp); head = bp;
+      const amp = ctx.createGain(); amp.gain.value = 0.55;
+      const lfo = ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.42;
+      const depth = ctx.createGain(); depth.gain.value = 0.45;
+      lfo.connect(depth); depth.connect(amp.gain); lfo.start();
+      head.connect(amp); head = amp;
+      nodes.push(amp, lfo, depth);
+    } else {                                     // pink
+      src.buffer = this._buf('pink');
+      const lp = bq('lowpass', 2800);
+      head.connect(lp); head = lp;
+    }
+
+    head.connect(this.gain);
+    src.start();
+    // gentle 1.5 s fade-in — nothing in this app ever startles
+    this.gain.gain.setTargetAtTime(NOISE_LEVELS[noiseLevel] * (type === 'heart' ? 1.5 : 1), ctx.currentTime, 0.5);
+    this.type = type;
+    this.nodes = nodes;
+    startIdleBeat();
+  },
+
+  setLevel(level){
+    if(!NOISE_LEVELS[level]) return;
+    noiseLevel = level;
+    try{ localStorage.setItem('bk2-noise-level', level); }catch(e){}
+    if(this.gain && Audio.ctx)
+      this.gain.gain.setTargetAtTime(NOISE_LEVELS[level] * (this.type === 'heart' ? 1.5 : 1), Audio.ctx.currentTime, 0.1);
+  },
+
+  stop(immediate){
+    if(!this.type && !this.nodes.length) return;
+    const nodes = this.nodes, gain = this.gain, ctx = Audio.ctx;
+    this.type = null; this.nodes = []; this.gain = null;
+    if(!ctx){ return; }
+    try{
+      if(gain && !immediate){
+        gain.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.25);
+        setTimeout(() => { try{ nodes.forEach(n => { if(n.stop) n.stop(); n.disconnect(); }); gain.disconnect(); }catch(e){} }, 1200);
+      } else {
+        nodes.forEach(n => { try{ if(n.stop) n.stop(); n.disconnect(); }catch(e){} });
+        if(gain) try{ gain.disconnect(); }catch(e){}
+      }
+    }catch(e){}
+  }
+};
+
+/* ============================================================
+   5. UI STRINGS (ES default)
+   ============================================================ */
+const T = {
+  es:{
+    gmorning:"Buenos días", gafternoon:"Buenas tardes", gevening:"Buenas noches",
+    forName:n => "Para " + n, welcome:"Bienvenida a las noches tranquilas. ¿Cómo se llama tu bebé? (opcional)",
+    wgo:"Empezar", wname:"Nombre del bebé",
+    play:"Tocar", pause:"Pausa", home:"Volver al inicio", restart:"Reiniciar canción",
+    again:"¿Otra?", againBtn:"Otra vez", homeBtn:"Al inicio",
+    playall:"Reproducir todas", playfavs:"Tocar favoritas", wind:"Rutina de arrullo",
+    fav:"Favorita", repeat:"Repetir", shuffle:"Aleatorio", progress:"Progreso de la canción",
+    prev:"Anterior", next:"Siguiente",
+    continueLbl:"Continuar", contSub:s => "quedó en " + s,
+    catAll:"Todas", catArrullo:"Arrullos", catJuego:"Juegos",
+    moodArrullo:"arrullo", moodJuego:"juego",
+    noiseTitle:"Calma continua", noiseSub:"Sonidos suaves que siguen sonando solos — con o sin música.",
+    nRain:"Lluvia", nOcean:"Olas", nHeart:"Latido", nShush:"Shhh", nPink:"Niebla",
+    nLevel:"Nivel", nSoft:"Suave", nMed:"Medio", nLoud:"Fuerte",
+    noiseOff:"Calma apagada", noiseOn:n => "Suena: " + n,
+    settings:"Ajustes", babyName:"Bebé", namePh:"Nombre (opcional)", language:"Idioma", sound:"Sonido", done:"Listo",
+    sMusicbox:"Caja musical", sHarmony:"Dúo", sWarm:"Cálido", sMono:"Puro",
+    volume:"Volumen", vLow:"Suave", vMed:"Media", vHigh:"Alta",
+    tempo:"Ritmo", tCalm:"Calmo", tNormal:"Normal", tLively:"Alegre",
+    theme:"Pantalla", thDay:"Día", thNight:"Noche", thEmber:"Brasa", dimLbl:"Atenuar",
+    sleep:"Temporizador", slOff:"Apagado", sleepCancel:"Cancelar temporizador",
+    wsTitle:"Rutina de arrullo",
+    wsSub:"Arrullos cada vez más lentos y suaves. Al final, la música se apaga sola, quedan las olas y la pantalla descansa.",
+    wsCancel:"Cancelar", windCancel:"Cancelar rutina de arrullo", windOn:m => "Arrullo: " + m + " min",
+    voiceLbls:{ full:"Instrumental", guide:"Guía suave", lyrics:"Solo letra" },
+    voiceToast:{ full:"Instrumental — la música suena completa", guide:"Guía suave — canta tú, te acompaña bajito", lyrics:"Solo letra — tu voz, a tu ritmo" },
+    blackout:"Oscuras", blackHint:"toca para volver",
+    footNote:"Melodías tradicionales verificadas · todo suena desde tu dispositivo, sin internet",
+    windDone:"La música se durmió. Quedan las olas 🌊"
+  },
+  en:{
+    gmorning:"Good morning", gafternoon:"Good afternoon", gevening:"Good night",
+    forName:n => "For " + n, welcome:"Welcome to quiet nights. What's your baby's name? (optional)",
+    wgo:"Start", wname:"Baby's name",
+    play:"Play", pause:"Pause", home:"Back to home", restart:"Restart song",
+    again:"Again?", againBtn:"Again", homeBtn:"Home",
+    playall:"Play all", playfavs:"Play favorites", wind:"Wind-down routine",
+    fav:"Favorite", repeat:"Repeat", shuffle:"Shuffle", progress:"Song progress",
+    prev:"Previous", next:"Next",
+    continueLbl:"Continue", contSub:s => "left off at " + s,
+    catAll:"All", catArrullo:"Lullabies", catJuego:"Playtime",
+    moodArrullo:"lullaby", moodJuego:"playtime",
+    noiseTitle:"Steady calm", noiseSub:"Soft sounds that keep playing on their own — with or without music.",
+    nRain:"Rain", nOcean:"Waves", nHeart:"Heartbeat", nShush:"Shush", nPink:"Mist",
+    nLevel:"Level", nSoft:"Soft", nMed:"Medium", nLoud:"Loud",
+    noiseOff:"Calm sound off", noiseOn:n => "Playing: " + n,
+    settings:"Settings", babyName:"Baby", namePh:"Name (optional)", language:"Language", sound:"Sound", done:"Done",
+    sMusicbox:"Music box", sHarmony:"Duet", sWarm:"Warm", sMono:"Pure",
+    volume:"Volume", vLow:"Soft", vMed:"Medium", vHigh:"Loud",
+    tempo:"Tempo", tCalm:"Calm", tNormal:"Normal", tLively:"Lively",
+    theme:"Display", thDay:"Day", thNight:"Night", thEmber:"Ember", dimLbl:"Dim",
+    sleep:"Sleep timer", slOff:"Off", sleepCancel:"Cancel sleep timer",
+    wsTitle:"Wind-down routine",
+    wsSub:"Lullabies grow slower and softer. At the end the music tucks itself in, waves remain, and the screen rests.",
+    wsCancel:"Cancel", windCancel:"Cancel wind-down", windOn:m => "Wind-down: " + m + " min",
+    voiceLbls:{ full:"Instrumental", guide:"Soft guide", lyrics:"Lyrics only" },
+    voiceToast:{ full:"Instrumental — full music", guide:"Soft guide — you sing, it hums along", lyrics:"Lyrics only — your voice, your pace" },
+    blackout:"Lights off", blackHint:"tap to come back",
+    footNote:"Verified traditional melodies · everything plays from your device, no internet",
+    windDone:"The music fell asleep. The waves remain 🌊"
+  }
+};
+const NOISE_LABEL_KEYS = { rain:'nRain', ocean:'nOcean', heart:'nHeart', shush:'nShush', pink:'nPink' };
+const NOISE_ICONS = { rain:'🌧️', ocean:'🌊', heart:'💗', shush:'🤫', pink:'🌫️' };
+
+/* ============================================================
+   6. STATE + DOM
+   ============================================================ */
+const state = {
+  lang:'es', song:null, activeLyric:-1, activeSyl:-1, ariaSec:-1, raf:0, wake:null,
+  playlist:null, playlistIdx:0, repeat:false, shuffle:false,
+  favs:new Set(), lastFav:null, cat:'all', babyName:'',
+  sleepAt:null, sleepMin:0, sleepFading:false,
+  windAt:null, windStart:0, windMin:0, windStep:0, windFading:false,
+  resume:null
+};
+try{ const l = localStorage.getItem('bk2-lang'); if(l === 'en' || l === 'es') state.lang = l; }catch(e){}
+try{ state.repeat = localStorage.getItem('bk2-repeat') === '1'; }catch(e){}
+try{ state.shuffle = localStorage.getItem('bk2-shuffle') === '1'; }catch(e){}
+try{
+  const f = JSON.parse(localStorage.getItem('bk2-favs') || '[]');
+  if(Array.isArray(f)) state.favs = new Set(f.filter(x => typeof x === 'string'));
+}catch(e){}
+try{ state.babyName = (localStorage.getItem('bk2-name') || '').slice(0, 20); }catch(e){}
+try{
+  const r = JSON.parse(localStorage.getItem('bk2-resume') || 'null');
+  if(r && typeof r.id === 'string' && typeof r.pos === 'number') state.resume = r;
+}catch(e){}
+let themeMode = 'day';
+try{ const th = localStorage.getItem('bk2-theme'); if(th === 'night' || th === 'ember') themeMode = th; }catch(e){}
+let dimLevel = 0;
+try{ dimLevel = Math.min(70, Math.max(0, parseInt(localStorage.getItem('bk2-dim') || '0', 10) || 0)); }catch(e){}
+
+const $ = id => document.getElementById(id);
+const homeEl=$('home'), playerEl=$('player'), listEl=$('list');
+const trackEl=$('track'), stageEl=$('stage'), pTitleEl=$('p-title'), pDedicEl=$('p-dedic'), progressFill=$('progress-fill');
+const btnPlay=$('btn-play'), btnHome=$('btn-home'), btnRestart=$('btn-restart');
+const icoPlay=$('ico-play'), icoPause=$('ico-pause');
+const endOverlay=$('end-overlay'), btnAgain=$('btn-again'), btnEndHome=$('btn-end-home');
+const btnSettings=$('btn-settings'), settingsOverlay=$('settings-overlay'), setClose=$('set-close');
+const btnPlayall=$('btn-playall'), btnPlayfavs=$('btn-playfavs'), btnWind=$('btn-wind');
+const tgRepeat=$('tg-repeat'), tgShuffle=$('tg-shuffle'), tgVoice=$('tg-voice'), tgBlack=$('tg-black');
+const btnPrev=$('btn-prev'), btnNext=$('btn-next');
+const plPos=$('pl-pos'), pillSleep=$('pill-sleep'), sleepLeftEl=$('sleep-left');
+const pillWind=$('pill-wind'), windLeftEl=$('wind-left');
+const pillNoise=$('pill-noise'), noiseNameEl=$('noise-name');
+const seekEl=$('seek'), progressBarEl=document.querySelector('#seek .progress');
+const tCurEl=$('t-cur'), tTotEl=$('t-tot');
+const windSheet=$('wind-sheet'), wsCancel=$('ws-cancel');
+const blackoutEl=$('blackout'), dimEl=$('dim'), toastEl=$('toast');
+const welcomeEl=$('welcome'), wName=$('w-name'), wGo=$('w-go');
+const inpName=$('inp-name'), dimRange=$('dim-range'), dimVal=$('dim-val');
+const noiseChipsEl=$('noise-chips');
+const skyCanvas=$('sky'), skyCtx=skyCanvas.getContext('2d');
+
+function formatTime(sec){
+  sec = Math.max(0, Math.round(sec));
+  return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+}
+let toastTimer = 0;
+function toast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+}
+const HEART_PATH = 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z';
+
+/* ============================================================
+   7. HOME — greeting, songbook, categories, noise panel
+   ============================================================ */
+function greetingText(){
+  const t = T[state.lang];
+  const h = new Date().getHours();
+  const g = (h >= 5 && h < 12) ? t.gmorning : (h >= 12 && h < 19) ? t.gafternoon : t.gevening;
+  return state.babyName ? g + ', ' + state.babyName : g;
+}
+
+function applyLangChrome(){
+  const t = T[state.lang];
+  $('greeting').textContent = greetingText();
+  $('lbl-playall').textContent = t.playall;
+  $('lbl-playfavs').textContent = t.playfavs;
+  $('lbl-wind').textContent = t.wind;
+  $('cc-label').textContent = t.continueLbl;
+  document.querySelectorAll('.cat-chip').forEach(b => {
+    b.textContent = b.dataset.cat === 'all' ? t.catAll : (b.dataset.cat === 'arrullo' ? t.catArrullo : t.catJuego);
+  });
+  $('noise-title').textContent = t.noiseTitle;
+  $('noise-sub').textContent = t.noiseSub;
+  $('nl-label').textContent = t.nLevel;
+  const nl = { soft:t.nSoft, med:t.nMed, loud:t.nLoud };
+  document.querySelectorAll('.nl-btn').forEach(b => { b.textContent = nl[b.dataset.nlevel]; });
+  $('foot-note').textContent = t.footNote;
+  $('w-text').textContent = t.welcome;
+  wName.placeholder = t.wname; wName.setAttribute('aria-label', t.wname);
+  wGo.textContent = t.wgo;
+  seekEl.setAttribute('aria-label', t.progress);
+  $('lbl-repeat').textContent = t.repeat;   tgRepeat.setAttribute('aria-label', t.repeat);
+  $('lbl-shuffle').textContent = t.shuffle; tgShuffle.setAttribute('aria-label', t.shuffle);
+  $('lbl-voice').textContent = t.voiceLbls[voiceMode];
+  $('lbl-black').textContent = t.blackout;  tgBlack.setAttribute('aria-label', t.blackout);
+  $('b-hint').textContent = t.blackHint;
+  btnPrev.setAttribute('aria-label', t.prev);
+  btnNext.setAttribute('aria-label', t.next);
+  pillSleep.setAttribute('aria-label', t.sleepCancel);
+  pillWind.setAttribute('aria-label', t.windCancel);
+  pillNoise.setAttribute('aria-label', t.noiseOff);
+  btnSettings.setAttribute('aria-label', t.settings);
+  btnPlay.setAttribute('aria-label', t.play);
+  btnHome.setAttribute('aria-label', t.home);
+  btnRestart.setAttribute('aria-label', t.restart);
+  $('ws-title').textContent = t.wsTitle;
+  $('ws-sub').textContent = t.wsSub;
+  wsCancel.textContent = t.wsCancel;
+  document.documentElement.lang = state.lang;
+  renderNoiseChips();
+  updateSettingsUI();
+  updateContinueChip();
+}
+
+function updateSettingsUI(){
+  const t = T[state.lang];
+  $('set-title').textContent = t.settings;
+  $('set-name-label').textContent = t.babyName;
+  inpName.placeholder = t.namePh;
+  if(document.activeElement !== inpName) inpName.value = state.babyName;
+  $('set-lang-label').textContent = t.language;
+  $('set-sound-label').textContent = t.sound;
+  $('set-vol-label').textContent = t.volume;
+  $('set-tempo-label').textContent = t.tempo;
+  $('set-theme-label').textContent = t.theme;
+  $('dim-label').textContent = t.dimLbl;
+  $('set-sleep-label').textContent = t.sleep;
+  setClose.textContent = t.done;
+  const names = { musicbox:t.sMusicbox, harmony:t.sHarmony, warm:t.sWarm, mono:t.sMono };
+  document.querySelectorAll('[data-s]').forEach(el => { el.textContent = names[el.dataset.s]; });
+  const vols = { low:t.vLow, med:t.vMed, high:t.vHigh };
+  document.querySelectorAll('[data-v]').forEach(el => { el.textContent = vols[el.dataset.v]; });
+  const tempos = { calm:t.tCalm, normal:t.tNormal, lively:t.tLively };
+  document.querySelectorAll('[data-tp]').forEach(el => { el.textContent = tempos[el.dataset.tp]; });
+  const themes = { day:t.thDay, night:t.thNight, ember:t.thEmber };
+  document.querySelectorAll('[data-th]').forEach(el => { el.textContent = themes[el.dataset.th]; });
+  document.querySelectorAll('[data-sl]').forEach(el => { el.textContent = t.slOff; });
+  document.querySelectorAll('.set-opt[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang)));
+  document.querySelectorAll('.set-opt[data-synth]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.synth === synthMode)));
+  document.querySelectorAll('.set-opt[data-vol]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.vol === volumeMode)));
+  document.querySelectorAll('.set-opt[data-tempo]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tempo === tempoMode)));
+  document.querySelectorAll('.set-opt[data-theme]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.theme === themeMode)));
+  document.querySelectorAll('.set-opt[data-sleep]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.sleep === state.sleepMin)));
+  document.querySelectorAll('.nl-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.nlevel === noiseLevel)));
+  dimRange.value = dimLevel; dimVal.textContent = dimLevel + '%';
+}
+
+function renderList(animate){
+  listEl.innerHTML = '';
+  const t = T[state.lang];
+  let songs = SONGS.filter(s => s.language === state.lang);
+  if(state.cat !== 'all') songs = songs.filter(s => s.mood === state.cat);
+  songs = songs.slice().sort((a, b) => (state.favs.has(b.id) ? 1 : 0) - (state.favs.has(a.id) ? 1 : 0));
+  songs.forEach((song, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'row-wrap';
+    if(animate) wrap.style.animationDelay = Math.min(i * 35, 300) + 'ms';
+    else wrap.style.animation = 'none';
+    const row = document.createElement('button');
+    row.className = 'song-row';
+    row.setAttribute('aria-label', song.title);
+    const moodTxt = song.mood === 'arrullo' ? t.moodArrullo : t.moodJuego;
+    row.innerHTML =
+      '<span class="s-badge" aria-hidden="true">' + song.emoji + '</span>' +
+      '<span class="s-text"><span class="s-title serif">' + song.title + '</span>' +
+      '<span class="s-meta"><span>♪ ' + formatTime(song.duration) + '</span>' +
+      '<span class="dot-sep">·</span><span class="mood-tag ' + song.mood + '">' + moodTxt + '</span></span></span>';
+    row.addEventListener('click', () => openPlayer(song));
+    const fav = document.createElement('button');
+    fav.className = 'fav-btn';
+    fav.setAttribute('aria-pressed', String(state.favs.has(song.id)));
+    fav.setAttribute('aria-label', t.fav + ': ' + song.title);
+    fav.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + HEART_PATH + '"/></svg>';
+    if(state.lastFav === song.id){ fav.classList.add('pop'); state.lastFav = null; }
+    fav.addEventListener('click', () => toggleFav(song.id));
+    wrap.appendChild(row); wrap.appendChild(fav);
+    listEl.appendChild(wrap);
+  });
+  btnPlayfavs.hidden = !SONGS.some(s => s.language === state.lang && state.favs.has(s.id));
+}
+
+function toggleFav(id){
+  if(state.favs.has(id)){ state.favs.delete(id); }
+  else { state.favs.add(id); state.lastFav = id; }
+  try{ localStorage.setItem('bk2-favs', JSON.stringify([...state.favs])); }catch(e){}
+  renderList();
+}
+
+function setCat(cat){
+  state.cat = cat;
+  document.querySelectorAll('.cat-chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));
+  renderList(true);
+}
+document.querySelectorAll('.cat-chip').forEach(b => b.addEventListener('click', () => setCat(b.dataset.cat)));
+
+function renderNoiseChips(){
+  const t = T[state.lang];
+  noiseChipsEl.innerHTML = '';
+  NOISE_TYPES.forEach(type => {
+    const b = document.createElement('button');
+    b.className = 'noise-chip';
+    b.dataset.noise = type;
+    b.setAttribute('aria-pressed', String(Noise.type === type));
+    b.innerHTML = '<span class="nc-ico" aria-hidden="true">' + NOISE_ICONS[type] + '</span><span>' + t[NOISE_LABEL_KEYS[type]] + '</span>';
+    b.addEventListener('click', () => {
+      if(Noise.type === type){ setNoise(null); } else { setNoise(type); }
+    });
+    noiseChipsEl.appendChild(b);
+  });
+}
+function setNoise(type){
+  const t = T[state.lang];
+  if(type){ Noise.start(type); toast(t.noiseOn(t[NOISE_LABEL_KEYS[type]])); }
+  else { Noise.stop(); toast(t.noiseOff); }
+  document.querySelectorAll('.noise-chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.noise === Noise.type)));
+  updateNoisePill();
+}
+document.querySelectorAll('.nl-btn').forEach(b => b.addEventListener('click', () => { Noise.setLevel(b.dataset.nlevel); updateSettingsUI(); }));
+function updateNoisePill(){
+  if(Noise.type){
+    noiseNameEl.textContent = T[state.lang][NOISE_LABEL_KEYS[Noise.type]];
+    pillNoise.classList.add('show');
+  } else pillNoise.classList.remove('show');
+}
+pillNoise.addEventListener('click', () => setNoise(null));
+
+/* resume chip */
+function saveResume(){
+  if(!state.song || state.playlist) return;      // single-song sessions only
+  const pos = Audio.getPos();
+  if(pos > 5 && pos < state.song.duration - 5){
+    state.resume = { id:state.song.id, pos:+pos.toFixed(1) };
+    try{ localStorage.setItem('bk2-resume', JSON.stringify(state.resume)); }catch(e){}
+  }
+}
+function clearResume(){
+  state.resume = null;
+  try{ localStorage.removeItem('bk2-resume'); }catch(e){}
+  updateContinueChip();
+}
+function updateContinueChip(){
+  const chip = $('chip-continue');
+  const r = state.resume;
+  const song = r && SONGS.find(s => s.id === r.id && s.language === state.lang);
+  if(song && r.pos < song.duration - 5){
+    $('cc-title').textContent = song.title;
+    $('cc-sub').textContent = T[state.lang].contSub(formatTime(r.pos));
+    chip.classList.add('show');
+  } else chip.classList.remove('show');
+}
+$('chip-continue').addEventListener('click', () => {
+  const r = state.resume;
+  const song = r && SONGS.find(s => s.id === r.id && s.language === state.lang);
+  if(!song) return;
+  state.playlist = null; state.playlistIdx = 0;
+  playerEl.classList.remove('playlist');
+  enterPlayer();
+  loadSong(song, true, Math.min(r.pos, song.duration - 1));
+});
+
+/* first-run welcome */
+function initWelcome(){
+  let seen = false;
+  try{ seen = localStorage.getItem('bk2-seen') === '1'; }catch(e){}
+  if(!seen){
+    welcomeEl.hidden = false;
+    wGo.addEventListener('click', () => {
+      setBabyName(wName.value.trim());
+      welcomeEl.hidden = true;
+      try{ localStorage.setItem('bk2-seen', '1'); }catch(e){}
+    });
+  }
+}
+function setBabyName(name){
+  state.babyName = (name || '').slice(0, 20).trim();
+  try{ localStorage.setItem('bk2-name', state.babyName); }catch(e){}
+  $('greeting').textContent = greetingText();
+  updateDedic();
+}
+inpName.addEventListener('change', () => setBabyName(inpName.value));
+inpName.addEventListener('blur', () => setBabyName(inpName.value));
+
+/* ============================================================
+   8. SETTINGS
+   ============================================================ */
+function setLang(lang){
+  if(lang === state.lang) return;
+  state.lang = lang;
+  try{ localStorage.setItem('bk2-lang', lang); }catch(e){}
+  applyLangChrome();
+  renderList(true);
+}
+function setSynth(mode){
+  if(!SYNTH_MODES.includes(mode)) return;
+  synthMode = mode;
+  try{ localStorage.setItem('bk2-synth', mode); }catch(e){}
+  if(Audio.ctx && Audio.filter) Audio.filter.frequency.value = (mode === 'musicbox') ? 5200 : 3200;
+  updateSettingsUI();
+}
+function setVolume(level){
+  if(!VOLUME_LEVELS[level]) return;
+  volumeMode = level;
+  try{ localStorage.setItem('bk2-vol', level); }catch(e){}
+  if(Audio.ctx) Audio.master.gain.setTargetAtTime(VOLUME_LEVELS[level], Audio.ctx.currentTime, 0.05);
+  updateSettingsUI();
+}
+function setTempo(mode){
+  if(!TEMPO_SPB[mode] || mode === tempoMode) return;
+  const ratio = TEMPO_SPB[mode] / SEC_PER_BEAT;
+  tempoMode = mode;
+  SEC_PER_BEAT = TEMPO_SPB[mode];
+  try{ localStorage.setItem('bk2-tempo', mode); }catch(e){}
+  SONGS = RAW_SONGS.map(r => buildSong(r));
+  renderList();
+  updateContinueChip();
+  if(state.playlist) state.playlist = state.playlist.map(s => SONGS.find(n => n.id === s.id) || s);
+  if(state.song){
+    const fresh = SONGS.find(n => n.id === state.song.id);
+    if(playerEl.classList.contains('active') && fresh){
+      const pos = Audio.getPos(), wasPlaying = Audio.playing;
+      loadSong(fresh, wasPlaying, pos * ratio);
+    } else state.song = null;
+  }
+  updateSettingsUI();
+}
+function setTheme(mode){
+  themeMode = (mode === 'night' || mode === 'ember') ? mode : 'day';
+  try{ localStorage.setItem('bk2-theme', themeMode); }catch(e){}
+  if(themeMode === 'day') delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = themeMode;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', themeMode === 'night' ? '#0B1220' : themeMode === 'ember' ? '#080403' : '#F6F1E6');
+  initSky();
+  updateSettingsUI();
+}
+function setDim(v){
+  dimLevel = Math.min(70, Math.max(0, v | 0));
+  try{ localStorage.setItem('bk2-dim', String(dimLevel)); }catch(e){}
+  dimEl.style.opacity = dimLevel / 100;
+  dimVal.textContent = dimLevel + '%';
+}
+dimRange.addEventListener('input', () => setDim(+dimRange.value));
+
+let settingsReturnFocus = null;
+function openSettings(){
+  settingsReturnFocus = document.activeElement;
+  updateSettingsUI();
+  settingsOverlay.classList.add('show');
+  const first = settingsOverlay.querySelector('.set-opt');
+  if(first) first.focus();
+}
+function closeSettings(){
+  setBabyName(inpName.value);
+  settingsOverlay.classList.remove('show');
+  if(settingsReturnFocus && settingsReturnFocus.focus) settingsReturnFocus.focus();
+  settingsReturnFocus = null;
+}
+btnSettings.addEventListener('click', openSettings);
+setClose.addEventListener('click', closeSettings);
+settingsOverlay.addEventListener('click', e => { if(e.target === settingsOverlay) closeSettings(); });
+settingsOverlay.addEventListener('keydown', e => {          // focus trap
+  if(e.key !== 'Tab') return;
+  const items = settingsOverlay.querySelectorAll('button, input');
+  if(!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+});
+document.querySelectorAll('.set-opt[data-lang]').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+document.querySelectorAll('.set-opt[data-synth]').forEach(b => b.addEventListener('click', () => setSynth(b.dataset.synth)));
+document.querySelectorAll('.set-opt[data-vol]').forEach(b => b.addEventListener('click', () => setVolume(b.dataset.vol)));
+document.querySelectorAll('.set-opt[data-tempo]').forEach(b => b.addEventListener('click', () => setTempo(b.dataset.tempo)));
+document.querySelectorAll('.set-opt[data-theme]').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.theme)));
+document.querySelectorAll('.set-opt[data-sleep]').forEach(b => b.addEventListener('click', () => setSleep(+b.dataset.sleep)));
+
+/* ============================================================
+   8b. SLEEP TIMER — fade over the last 45 s on the audio thread.
+   ============================================================ */
+let sleepLastCheck = 0;
+function setSleep(min){
+  clearSleepFade();
+  state.sleepMin = min;
+  state.sleepAt = min > 0 ? Date.now() + min * 60000 : null;
+  sleepLastCheck = 0;
+  if(state.sleepAt) startIdleBeat();
+  updateSleepPill();
+  updateSettingsUI();
+}
+function clearSleepFade(){
+  state.sleepFading = false;
+  if(Audio.ctx && Audio.fadeGain){
+    const g = Audio.fadeGain.gain, t = Audio.ctx.currentTime;
+    g.cancelScheduledValues(t);
+    g.setTargetAtTime(1, t, 0.05);
+  }
+}
+function updateSleepPill(){
+  if(state.sleepAt){
+    const mins = Math.max(1, Math.ceil((state.sleepAt - Date.now()) / 60000));
+    sleepLeftEl.textContent = mins + ' min';
+    pillSleep.classList.add('show');
+  } else pillSleep.classList.remove('show');
+}
+function checkSleepTimer(){
+  if(!state.sleepAt) return;
+  const now = Date.now();
+  if(now - sleepLastCheck < 1000) return;
+  sleepLastCheck = now;
+  const left = state.sleepAt - now;
+  if(left <= 0){
+    if(Audio.playing) pausePlayback();
+    if(Noise.type) setNoise(null);            // sleep timer silences everything
+    state.sleepAt = null; state.sleepMin = 0;
+    clearSleepFade();
+    updateSleepPill();
+    updateSettingsUI();
+    return;
+  }
+  if(left <= 45000 && (Audio.playing || Noise.type) && !state.sleepFading){
+    state.sleepFading = true;
+    const g = Audio.fadeGain.gain, t = Audio.ctx.currentTime;
+    g.cancelScheduledValues(t);
+    g.setValueAtTime(Math.max(g.value, 0.0001), t);
+    g.linearRampToValueAtTime(0.0001, t + left / 1000);
+  }
+  updateSleepPill();
+}
+pillSleep.addEventListener('click', () => setSleep(0));
+
+/* ============================================================
+   8c. WIND-DOWN — lullabies only, each pass slightly slower;
+   volume eases down across the whole routine on the audio thread;
+   at the end the music stops, waves start, the screen goes dark.
+   ============================================================ */
+function openWindSheet(){ windSheet.classList.add('show'); const f = windSheet.querySelector('.set-opt'); if(f) f.focus(); }
+function closeWindSheet(){ windSheet.classList.remove('show'); }
+btnWind.addEventListener('click', openWindSheet);
+wsCancel.addEventListener('click', closeWindSheet);
+windSheet.addEventListener('click', e => { if(e.target === windSheet) closeWindSheet(); });
+windSheet.querySelectorAll('.set-opt[data-min]').forEach(b =>
+  b.addEventListener('click', () => { closeWindSheet(); startWind(+b.dataset.min); }));
+
+function windSpb(){ return Math.min(TEMPO_SPB.calm * (1 + 0.06 * state.windStep), TEMPO_SPB.calm * 1.3); }
+
+function startWind(min){
+  const t = T[state.lang];
+  let songs = SONGS.filter(s => s.language === state.lang && s.mood === 'arrullo');
+  if(!songs.length) songs = SONGS.filter(s => s.language === state.lang);
+  state.windMin = min;
+  state.windStart = Date.now();
+  state.windAt = Date.now() + min * 60000;
+  state.windStep = 0;
+  state.windFading = false;
+  Audio.init();
+  // whole-routine ease: hold, then glide to 30% by the final stretch (audio thread)
+  const g = Audio.windGain.gain, now = Audio.ctx.currentTime, total = min * 60;
+  g.cancelScheduledValues(now);
+  g.setValueAtTime(1, now);
+  g.linearRampToValueAtTime(0.65, now + total * 0.6);
+  g.linearRampToValueAtTime(0.3, now + Math.max(total - 40, total * 0.9));
+  state.playlist = shuffled(songs);
+  state.playlistIdx = 0;
+  playerEl.classList.add('playlist');
+  enterPlayer();
+  loadSong(buildSong(RAW_SONGS.find(r => r.id === state.playlist[0].id), windSpb()), true);
+  startIdleBeat();
+  updateWindPill();
+  toast(t.windOn(min));
+}
+function clearWind(silent){
+  state.windAt = null; state.windMin = 0; state.windStep = 0; state.windFading = false;
+  if(Audio.ctx){
+    const g = Audio.windGain.gain, t = Audio.ctx.currentTime;
+    g.cancelScheduledValues(t);
+    g.setTargetAtTime(1, t, 0.1);
+  }
+  updateWindPill();
+}
+function updateWindPill(){
+  if(state.windAt){
+    const mins = Math.max(1, Math.ceil((state.windAt - Date.now()) / 60000));
+    windLeftEl.textContent = mins + ' min';
+    pillWind.classList.add('show');
+  } else pillWind.classList.remove('show');
+}
+let windLastCheck = 0;
+function checkWind(){
+  if(!state.windAt) return;
+  const now = Date.now();
+  if(now - windLastCheck < 1000) return;
+  windLastCheck = now;
+  if(now >= state.windAt){
+    const t = T[state.lang];
+    clearWind();
+    if(Audio.playing){ Audio.stop(); setPlayUI(false); }
+    state.playlist = null;
+    if(!Noise.type){ noiseLevel = 'soft'; setNoise('ocean'); }
+    updateNoisePill();
+    enterBlackout();
+    toast(t.windDone);
+    return;
+  }
+  updateWindPill();
+}
+pillWind.addEventListener('click', () => { clearWind(); toast(T[state.lang].wsCancel); });
+
+/* ============================================================
+   8d. BLACKOUT — screen fully dark, audio keeps going.
+   ============================================================ */
+function enterBlackout(){ blackoutEl.classList.add('show'); }
+function exitBlackout(){ blackoutEl.classList.remove('show'); }
+blackoutEl.addEventListener('click', exitBlackout);
+tgBlack.addEventListener('click', enterBlackout);
+
+/* ============================================================
+   8e. VOICE MODE — sing it yourself; karaoke paces YOUR voice.
+   ============================================================ */
+function setVoice(mode, silent){
+  if(!VOICE_MODES.includes(mode)) return;
+  voiceMode = mode;
+  try{ localStorage.setItem('bk2-voice', mode); }catch(e){}
+  if(Audio.ctx) Audio.voiceGain.gain.setTargetAtTime(VOICE_GAIN[mode], Audio.ctx.currentTime, 0.08);
+  const t = T[state.lang];
+  $('lbl-voice').textContent = t.voiceLbls[mode];
+  tgVoice.setAttribute('aria-pressed', String(mode !== 'full'));
+  tgVoice.setAttribute('aria-label', t.voiceLbls[mode]);
+  if(!silent) toast(t.voiceToast[mode]);
+}
+tgVoice.addEventListener('click', () => {
+  const next = VOICE_MODES[(VOICE_MODES.indexOf(voiceMode) + 1) % VOICE_MODES.length];
+  setVoice(next);
+});
+
+/* ============================================================
+   9. PLAYER
+   ============================================================ */
+function enterPlayer(){
+  homeEl.classList.remove('active');
+  playerEl.classList.add('active');
+  resizeSky();
+  cancelAnimationFrame(state.raf);
+  state.raf = requestAnimationFrame(tick);
+}
+
+function updateDedic(){
+  pDedicEl.textContent = state.babyName ? T[state.lang].forName(state.babyName) : '';
+}
+
+// autoplay=false → opens paused (single-tile tap: no autoplay surprises).
+// offsetSec starts mid-song (tempo change / resume).
+function loadSong(song, autoplay, offsetSec){
+  state.song = song;
+  state.activeLyric = -1;
+  state.activeSyl = -1;
+  Audio.stop();
+  Audio.setMelody(song.melody);
+  Audio.duration = song.duration;
+  if(offsetSec > 0) Audio.offset = Math.min(offsetSec, Math.max(0, song.duration - 0.1));
+
+  pTitleEl.textContent = song.title;
+  updateDedic();
+  trackEl.innerHTML = '';
+  song.lines.forEach(line => {
+    const div = document.createElement('div');
+    div.className = 'lyric-line';
+    let word = document.createElement('span');
+    word.className = 'word';
+    line.syls.forEach(s => {
+      const hasSpace = /\s$/.test(s.text);
+      const span = document.createElement('span');
+      span.className = 'syl';
+      span.textContent = s.text.replace(/\s+$/, '');
+      word.appendChild(span);
+      if(hasSpace){
+        div.appendChild(word);
+        div.appendChild(document.createTextNode(' '));
+        word = document.createElement('span');
+        word.className = 'word';
+      }
+    });
+    if(word.childNodes.length) div.appendChild(word);
+    trackEl.appendChild(div);
+  });
+
+  progressFill.style.width = '0%';
+  state.ariaSec = -1;
+  tTotEl.textContent = formatTime(song.duration);
+  tCurEl.textContent = formatTime(Audio.offset || 0);
+  hideEnd();
+  updatePlaylistPos();
+
+  if('mediaSession' in navigator){
+    try{
+      navigator.mediaSession.metadata = new MediaMetadata({ title:song.title, artist:'Babyoke' });
+    }catch(e){}
+    try{ navigator.mediaSession.setActionHandler('previoustrack', state.playlist ? prevSong : null); }catch(e){}
+    try{ navigator.mediaSession.setActionHandler('nexttrack', state.playlist ? nextSong : null); }catch(e){}
+    updateMediaPosition();
+  }
+
+  // rAF never fires hidden — deferred start must use setTimeout there.
+  const go = () => {
+    // The track still carries the PREVIOUS song's translateY; without this the
+    // new lyrics fly in from off-screen at every playlist/wind-down advance.
+    // Jump instantly into place, then restore the smooth line-to-line motion.
+    trackEl.style.transition = 'none';
+    renderActiveLyric(0);
+    void trackEl.offsetHeight;
+    setTimeout(() => { trackEl.style.transition = ''; }, 60);
+    if(autoplay) startPlayback(); else setPlayUI(false);
+  };
+  if(document.hidden) setTimeout(go, 0); else requestAnimationFrame(go);
+}
+
+function openPlayer(song){
+  state.playlist = null;
+  state.playlistIdx = 0;
+  playerEl.classList.remove('playlist');
+  enterPlayer();
+  loadSong(song, false);
+}
+function openPlaylist(songs){
+  if(!songs || !songs.length) return;
+  clearWind(true);
+  state.playlist = state.shuffle ? shuffled(songs) : songs.slice();
+  state.playlistIdx = 0;
+  playerEl.classList.add('playlist');
+  enterPlayer();
+  loadSong(state.playlist[0], true);
+}
+function shuffled(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function goToPlaylistIndex(i, autoplay){
+  state.playlistIdx = i;
+  let song = state.playlist[i];
+  if(state.windAt){        // wind-down: rebuild progressively slower
+    const raw = RAW_SONGS.find(r => r.id === song.id);
+    if(raw) song = buildSong(raw, windSpb());
+  }
+  loadSong(song, autoplay);
+}
+function updatePlaylistPos(){
+  if(state.playlist){
+    plPos.textContent = '♪ ' + (state.playlistIdx + 1) + ' / ' + state.playlist.length;
+    plPos.classList.add('show');
+  } else plPos.classList.remove('show');
+}
+
+function onSongEnd(){
+  if(state.playlist){
+    if(state.windAt) state.windStep++;
+    if(state.playlistIdx < state.playlist.length - 1){ goToPlaylistIndex(state.playlistIdx + 1, true); return; }
+    if(state.repeat || state.windAt){                 // wind-down loops until its clock ends it
+      if(state.shuffle || state.windAt) state.playlist = shuffled(state.playlist);
+      goToPlaylistIndex(0, true); return;
+    }
+    showEnd(); return;
+  }
+  clearResume();
+  if(state.repeat){ restartSong(); return; }
+  showEnd();
+}
+
+function setRepeat(on){
+  state.repeat = on;
+  tgRepeat.setAttribute('aria-pressed', on ? 'true' : 'false');
+  try{ localStorage.setItem('bk2-repeat', on ? '1' : '0'); }catch(e){}
+}
+function setShuffle(on){
+  state.shuffle = on;
+  tgShuffle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  try{ localStorage.setItem('bk2-shuffle', on ? '1' : '0'); }catch(e){}
+  if(on && state.playlist && state.playlistIdx < state.playlist.length - 1){
+    const head = state.playlist.slice(0, state.playlistIdx + 1);
+    const rest = shuffled(state.playlist.slice(state.playlistIdx + 1));
+    state.playlist = head.concat(rest);
+  }
+}
+function nextSong(){
+  if(!state.playlist) return;
+  hideEnd();
+  goToPlaylistIndex((state.playlistIdx + 1) % state.playlist.length, true);
+}
+function prevSong(){
+  if(!state.playlist){ restartSong(); return; }
+  hideEnd();
+  if(Audio.getPos() > 3){ restartSong(); return; }
+  goToPlaylistIndex((state.playlistIdx - 1 + state.playlist.length) % state.playlist.length, true);
+}
+
+function goHome(){
+  saveResume();
+  Audio.stop();
+  clearSleepFade();
+  clearWind(true);
+  cancelAnimationFrame(state.raf);
+  releaseWake();
+  playerEl.classList.remove('active');
+  playerEl.classList.remove('playlist');
+  homeEl.classList.add('active');
+  hideEnd();
+  state.playlist = null;
+  state.song = null;
+  updatePlaylistPos();
+  updateContinueChip();
+  $('greeting').textContent = greetingText();
+  if('mediaSession' in navigator){
+    try{ navigator.mediaSession.metadata = null; navigator.mediaSession.playbackState = 'none'; }catch(e){}
+    updateMediaPosition();
+  }
+}
+
+function setPlayUI(playing){
+  icoPlay.style.display = playing ? 'none' : 'block';
+  icoPause.style.display = playing ? 'block' : 'none';
+  btnPlay.setAttribute('aria-label', playing ? T[state.lang].pause : T[state.lang].play);
+  btnPlay.classList.toggle('idle', !playing);
+  if('mediaSession' in navigator){
+    try{ navigator.mediaSession.playbackState = playing ? 'playing' : 'paused'; }catch(e){}
+    updateMediaPosition();
+  }
+}
+function startPlayback(){
+  if(Audio.getPos() >= state.song.duration - 0.05){
+    Audio.offset = 0; state.activeLyric = -1; state.activeSyl = -1;
+  }
+  hideEnd();
+  Audio.play();
+  setPlayUI(true);
+  requestWake();
+}
+function pausePlayback(){
+  Audio.pause();
+  if(state.sleepFading) clearSleepFade();
+  saveResume();
+  setPlayUI(false);
+  releaseWake();
+}
+function togglePlay(){ if(Audio.playing) pausePlayback(); else startPlayback(); }
+function restartSong(){
+  Audio.stop();
+  state.activeLyric = -1;
+  state.activeSyl = -1;
+  progressFill.style.width = '0%';
+  startPlayback();
+}
+btnPlay.addEventListener('click', togglePlay);
+btnHome.addEventListener('click', goHome);
+btnRestart.addEventListener('click', restartSong);
+btnPrev.addEventListener('click', prevSong);
+btnNext.addEventListener('click', nextSong);
+
+/* ---------- seek ---------- */
+function seekTo(sec){
+  const song = state.song;
+  if(!song) return;
+  const wasPlaying = Audio.playing;
+  if(wasPlaying) Audio.pause();
+  Audio.offset = Math.max(0, Math.min(sec, song.duration - 0.25));
+  state.activeLyric = -1; state.activeSyl = -1;
+  hideEnd();
+  if(wasPlaying) Audio.play();
+  updateMediaPosition();
+}
+function seekPosFromPointer(e){
+  const r = progressBarEl.getBoundingClientRect();
+  const f = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  return f * state.song.duration;
+}
+let seekDrag = null;
+seekEl.addEventListener('pointerdown', e => {
+  if(!state.song) return;
+  e.preventDefault();
+  seekDrag = { resume: Audio.playing };
+  if(Audio.playing) pausePlayback();
+  try{ seekEl.setPointerCapture(e.pointerId); }catch(err){}
+  seekTo(seekPosFromPointer(e));
+});
+seekEl.addEventListener('pointermove', e => { if(seekDrag) seekTo(seekPosFromPointer(e)); });
+function endSeekDrag(){
+  if(!seekDrag) return;
+  if(seekDrag.resume) startPlayback();
+  seekDrag = null;
+}
+seekEl.addEventListener('pointerup', endSeekDrag);
+seekEl.addEventListener('pointercancel', endSeekDrag);
+
+/* ---------- lyric rendering ---------- */
+function renderActiveLyric(active){
+  const lines = trackEl.children;
+  const line = lines[active];
+  if(!line) return;
+  const ty = stageEl.clientHeight / 2 - (line.offsetTop + line.offsetHeight / 2);
+  trackEl.style.transform = 'translateY(' + ty + 'px)';
+  for(let i = 0; i < lines.length; i++){
+    const d = Math.abs(i - active);
+    lines[i].classList.toggle('active', d === 0);
+    lines[i].style.opacity = d === 0 ? 1 : (d === 1 ? 0.32 : 0);
+  }
+}
+function renderActiveSyllable(song, sIdx){
+  const fs = song.flatSyls;
+  const cur = sIdx >= 0 ? fs[sIdx] : null;
+  const curTime = cur ? cur.time : -1;
+  const lineDivs = trackEl.children;
+  for(let li = 0; li < song.lines.length; li++){
+    const spans = lineDivs[li] ? lineDivs[li].querySelectorAll('.syl') : [];
+    const syls = song.lines[li].syls;
+    for(let i = 0; i < spans.length; i++){
+      const isCur = cur && li === cur.line && i === cur.i;
+      const sung = !isCur && syls[i].time <= curTime + 0.0001;
+      spans[i].classList.toggle('cur', !!isCur);
+      spans[i].classList.toggle('sung', sung);
+    }
+  }
+}
+
+/* ============================================================
+   10. MAIN LOOP
+   ============================================================ */
+let resumeSaveAt = 0;
+function tick(){
+  const song = state.song;
+  if(!song) return;
+  const pos = Audio.getPos();
+
+  progressFill.style.width = Math.min(100, (pos / song.duration) * 100) + '%';
+  const secNow = Math.floor(pos);
+  if(secNow !== state.ariaSec){
+    state.ariaSec = secNow;
+    tCurEl.textContent = formatTime(pos);
+    seekEl.setAttribute('aria-valuemax', String(Math.round(song.duration)));
+    seekEl.setAttribute('aria-valuenow', String(Math.min(Math.max(0, secNow), Math.round(song.duration))));
+    seekEl.setAttribute('aria-valuetext', formatTime(pos) + ' / ' + formatTime(song.duration));
+  }
+
+  let idx = 0;
+  for(let i = 0; i < song.lyrics.length; i++){
+    if(song.lyrics[i].time <= pos + 0.05) idx = i; else break;
+  }
+  if(idx !== state.activeLyric){ state.activeLyric = idx; renderActiveLyric(idx); }
+
+  let sIdx = -1;
+  const fs = song.flatSyls;
+  for(let i = 0; i < fs.length; i++){
+    if(fs[i].time <= pos + 0.04) sIdx = i; else break;
+  }
+  if(sIdx !== state.activeSyl){ state.activeSyl = sIdx; renderActiveSyllable(song, sIdx); }
+
+  if(Audio.playing && Date.now() - resumeSaveAt > 3000){ resumeSaveAt = Date.now(); saveResume(); }
+
+  drawSky();
+  checkSleepTimer();
+  checkWind();
+  if(Audio.playing && pos >= song.duration){ onSongEnd(); }
+  state.raf = requestAnimationFrame(tick);
+}
+
+/* ============================================================
+   11. SKY — still constellation, slow twinkle. No motion, no
+   particles: the night sky just breathes.
+   ============================================================ */
+let stars = [];
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
+try{ REDUCED_MOTION.addEventListener('change', () => initSky()); }catch(e){}
+function resizeSky(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  skyCanvas.width = window.innerWidth * dpr;
+  skyCanvas.height = window.innerHeight * dpr;
+  skyCanvas.style.width = window.innerWidth + 'px';
+  skyCanvas.style.height = window.innerHeight + 'px';
+  skyCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if(!stars.length) initSky(); else drawSky(true);
+}
+function initSky(){
+  const W = window.innerWidth, H = window.innerHeight;
+  const count = Math.round(Math.max(24, Math.min(60, (W * H) / 34000)));
+  stars = [];
+  for(let i = 0; i < count; i++){
+    stars.push({
+      x: Math.random(), y: Math.random() * 0.82,
+      r: 0.6 + Math.random() * 1.6,
+      ph: Math.random() * Math.PI * 2,
+      sp: 0.15 + Math.random() * 0.35
+    });
+  }
+  drawSky(true);
+}
+function starColor(){
+  const cs = getComputedStyle(document.documentElement);
+  return (cs.getPropertyValue('--star') || '#C99A3C').trim();
+}
+let lastSkyDraw = 0;
+function drawSky(force){
+  const now = performance.now();
+  if(!force && now - lastSkyDraw < 90) return;      // ~11 fps is plenty for twinkle
+  lastSkyDraw = now;
+  const W = window.innerWidth, H = window.innerHeight;
+  skyCtx.clearRect(0, 0, W, H);
+  const col = starColor();
+  const still = REDUCED_MOTION.matches;
+  for(const s of stars){
+    const tw = still ? 0.55 : 0.35 + 0.35 * (0.5 + 0.5 * Math.sin(s.ph + now / 1000 * s.sp));
+    skyCtx.globalAlpha = tw * (themeMode === 'day' ? 0.35 : 0.8);
+    skyCtx.fillStyle = col;
+    skyCtx.beginPath();
+    skyCtx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    skyCtx.fill();
+  }
+  skyCtx.globalAlpha = 1;
+}
+
+/* ============================================================
+   12. END SCREEN
+   ============================================================ */
+function showEnd(){
+  Audio.pause();
+  setPlayUI(false);
+  releaseWake();
+  $('end-title').textContent = T[state.lang].again;
+  $('lbl-again').textContent = T[state.lang].againBtn;
+  $('lbl-end-home').textContent = T[state.lang].homeBtn;
+  endOverlay.classList.add('show');
+}
+function hideEnd(){ endOverlay.classList.remove('show'); }
+btnAgain.addEventListener('click', () => {
+  hideEnd();
+  if(state.playlist){
+    if(state.shuffle) state.playlist = shuffled(state.playlist);
+    goToPlaylistIndex(0, true);
+  } else restartSong();
+});
+btnEndHome.addEventListener('click', goHome);
+btnPlayall.addEventListener('click', () => openPlaylist(SONGS.filter(s => s.language === state.lang && (state.cat === 'all' || s.mood === state.cat))));
+btnPlayfavs.addEventListener('click', () => openPlaylist(SONGS.filter(s => s.language === state.lang && state.favs.has(s.id))));
+tgRepeat.addEventListener('click', () => setRepeat(!state.repeat));
+tgShuffle.addEventListener('click', () => setShuffle(!state.shuffle));
+
+/* ============================================================
+   13. WAKE LOCK + VISIBILITY
+   ============================================================ */
+async function requestWake(){
+  try{ if('wakeLock' in navigator){ state.wake = await navigator.wakeLock.request('screen'); } }catch(e){}
+}
+function releaseWake(){
+  try{ if(state.wake){ state.wake.release(); state.wake = null; } }catch(e){}
+}
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState === 'visible'){
+    if(Audio.playing && !state.wake) requestWake();
+    if(state.song){ state.activeLyric = -1; state.activeSyl = -1; }
+  } else if(Audio.playing){
+    Audio._schedule();
+  }
+});
+
+/* ============================================================
+   13b. MEDIA SESSION
+   ============================================================ */
+function updateMediaPosition(){
+  if(!('mediaSession' in navigator) || !navigator.mediaSession.setPositionState) return;
+  try{
+    if(state.song) navigator.mediaSession.setPositionState({
+      duration: state.song.duration, playbackRate: 1,
+      position: Math.max(0, Math.min(Audio.getPos(), state.song.duration))
+    });
+    else navigator.mediaSession.setPositionState();
+  }catch(e){}
+}
+function setupMediaSession(){
+  if(!('mediaSession' in navigator)) return;
+  const on = (a, fn) => { try{ navigator.mediaSession.setActionHandler(a, fn); }catch(e){} };
+  on('play',  () => { if(state.song && playerEl.classList.contains('active')) startPlayback(); });
+  on('pause', () => pausePlayback());
+  on('seekto', d => { if(state.song && typeof d.seekTime === 'number') seekTo(d.seekTime); });
+}
+
+/* ============================================================
+   14. KEYBOARD + RESIZE + UNLOCK
+   ============================================================ */
+let audioUnlocked = false;
+function unlockAudioOnce(){ if(audioUnlocked) return; audioUnlocked = true; try{ Audio.unlock(); }catch(e){} }
+['pointerdown','touchend','mousedown','keydown'].forEach(ev =>
+  document.addEventListener(ev, unlockAudioOnce, { passive:true }));
+
+document.addEventListener('keydown', e => {
+  if(blackoutEl.classList.contains('show')){
+    if(e.code === 'Escape' || e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); exitBlackout(); }
+    return;
+  }
+  if(settingsOverlay.classList.contains('show')){
+    if(e.code === 'Escape'){ e.preventDefault(); closeSettings(); }
+    return;
+  }
+  if(windSheet.classList.contains('show')){
+    if(e.code === 'Escape'){ e.preventDefault(); closeWindSheet(); }
+    return;
+  }
+  if(document.activeElement === inpName || document.activeElement === wName) return;
+  if(!playerEl.classList.contains('active')) return;
+  if(document.activeElement === seekEl && state.song){
+    if(e.code === 'ArrowRight'){ e.preventDefault(); seekTo(Audio.getPos() + 5); return; }
+    if(e.code === 'ArrowLeft'){ e.preventDefault(); seekTo(Audio.getPos() - 5); return; }
+    if(e.code === 'Home'){ e.preventDefault(); seekTo(0); return; }
+    if(e.code === 'End'){ e.preventDefault(); seekTo(state.song.duration); return; }
+  }
+  if(e.code === 'Space'){ e.preventDefault(); if(endOverlay.classList.contains('show')){ hideEnd(); restartSong(); } else togglePlay(); }
+  else if(e.code === 'Escape'){ e.preventDefault(); goHome(); }
+  else if(e.code === 'ArrowRight'){ e.preventDefault(); nextSong(); }
+  else if(e.code === 'ArrowLeft'){ e.preventDefault(); prevSong(); }
+  else if(e.code === 'KeyB'){ e.preventDefault(); enterBlackout(); }
+  else if(e.code === 'KeyV'){ e.preventDefault(); setVoice(VOICE_MODES[(VOICE_MODES.indexOf(voiceMode) + 1) % VOICE_MODES.length]); }
+});
+let resizeRaf = 0;
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(resizeRaf);
+  resizeRaf = requestAnimationFrame(() => {
+    resizeSky();
+    if(playerEl.classList.contains('active') && state.activeLyric >= 0) renderActiveLyric(state.activeLyric);
+  });
+});
+window.addEventListener('pagehide', saveResume);
+
+/* ============================================================
+   15. INIT
+   ============================================================ */
+Audio.onended = onSongEnd;
+setupMediaSession();
+applyLangChrome();
+setRepeat(state.repeat);
+setShuffle(state.shuffle);
+setVoice(voiceMode, true);
+setTheme(themeMode);
+setDim(dimLevel);
+renderList(true);
+initWelcome();
+resizeSky();
+
+// Installable when served over HTTPS: inject a manifest at runtime (harmless on file://).
+try{
+  const man = { name:'Babyoke', short_name:'Babyoke', start_url:'.', display:'standalone',
+    background_color: themeMode === 'night' ? '#0B1220' : '#F6F1E6',
+    theme_color: themeMode === 'night' ? '#0B1220' : '#F6F1E6', icons: [] };
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = URL.createObjectURL(new Blob([JSON.stringify(man)], { type:'application/json' }));
+  document.head.appendChild(link);
+}catch(e){}
+</script>
+</body>
+</html>

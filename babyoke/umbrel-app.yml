@@ -1,0 +1,40 @@
+manifestVersion: 1
+id: babyoke
+name: Babyoke
+tagline: Lullaby karaoke and wind-down sounds for babies
+category: media
+version: "2.0.0"
+port: 8100
+icon: https://raw.githubusercontent.com/arquiguru/umbrel-babyoke/main/babyoke/icon.svg
+description: >-
+  Babyoke is a full-screen lullaby karaoke web app for babies and toddlers.
+  Big friendly buttons launch sing-along arrullos with lyrics synced to the
+  melody on any screen: a TV, a tablet, or a phone.
+
+
+  Version 2 is a complete rebuild: a calm "Linen & Ink" look with night and
+  melatonin-safe ember themes, a noise engine (rain, waves, heartbeat, shush,
+  pink noise), a guided wind-down routine, voice modes for singing along,
+  a blackout screen, baby-name personalization, and mood categories.
+
+
+  It is a single self-contained static page served by nginx — no login, no
+  account, no data collection, and no internet fetches at all. Audio starts
+  after your first tap (a mobile-browser rule), and over plain HTTP the
+  keep-screen-awake feature is disabled by the browser; the app is otherwise
+  fully usable.
+developer: arquiguru
+website: https://github.com/arquiguru
+repo: https://github.com/arquiguru/umbrel-babyoke
+support: https://github.com/arquiguru/umbrel-babyoke/issues
+submitter: arquiguru
+submission: ""
+dependencies: []
+releaseNotes: >-
+  Complete rebuild of Babyoke ("babyoke2"). New Linen & Ink design with night
+  and melatonin-safe ember themes, noise engine (rain, waves, heartbeat,
+  shush, pink), wind-down routine, voice modes, blackout screen, baby-name
+  personalization, mood categories, and a resume chip. Fully self-contained:
+  the Google emoji-font fetch is gone.
+path: ""
+defaultPassword: ""
